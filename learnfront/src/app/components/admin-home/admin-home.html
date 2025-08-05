@@ -1,0 +1,96 @@
+<app-side-bar>
+  <div class="dashboard-container">
+    <div class="dashboard-header">
+      <div class="header-left">
+        <h1>Welcome, <span class="user-name">{{ userName }}</span>!</h1>
+        
+      </div>
+      <div class="header-right">
+        <img src="/assets/images/logo.svg" class="avatar-icon">
+      </div>
+    </div>
+    <div class="dashboard-grid">
+      <!-- User Stats Cards -->
+      <mat-card class="dashboard-card stat-card" matRipple>
+        <div class="stat-icon stat-users"><mat-icon>group</mat-icon></div>
+        <mat-card-title>Total Users</mat-card-title>
+        <mat-card-content>
+          <h2>{{ totalUsers }}</h2>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="dashboard-card stat-card" matRipple>
+        <div class="stat-icon stat-active"><mat-icon>verified_user</mat-icon></div>
+        <mat-card-title>Active Users</mat-card-title>
+        <mat-card-content>
+          <h2>{{ activeUsers }}</h2>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="dashboard-card stat-card" matRipple>
+        <div class="stat-icon stat-new"><mat-icon>person_add</mat-icon></div>
+        <mat-card-title>New Registrations</mat-card-title>
+        <mat-card-content>
+          <h2>{{ newRegistrations }}</h2>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="dashboard-card quick-actions" matRipple>
+        <mat-card-title>Quick Actions</mat-card-title>
+        <mat-card-content>
+          <button mat-raised-button color="primary" routerLink="/user-list"><mat-icon>manage_accounts</mat-icon> Manage Users</button>
+          <button mat-raised-button color="accent"><mat-icon>list_alt</mat-icon> View Logs</button>
+          <button mat-raised-button color="warn" (click)="logout()"><mat-icon>logout</mat-icon> Logout</button>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="dashboard-card recent-registrations" matRipple>
+        <mat-card-title>Recent Registrations</mat-card-title>
+        <mat-card-content>
+          <table mat-table [dataSource]="users.slice(0,5)" class="mat-elevation-z1" >
+            <ng-container matColumnDef="avatar" >
+               <th mat-header-cell *matHeaderCellDef >Id</th>
+              <td mat-cell *matCellDef="let user">{{ user.idUser }}</td>
+              
+            </ng-container>
+            <ng-container matColumnDef="firstName">
+              <th mat-header-cell *matHeaderCellDef>First Name</th>
+              <td mat-cell *matCellDef="let user">{{ user.firstName }}</td>
+            </ng-container>
+            <ng-container matColumnDef="lastName">
+              <th mat-header-cell *matHeaderCellDef>Last Name</th>
+              <td mat-cell *matCellDef="let user">{{ user.lastName}}</td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef>Email</th>
+              <td mat-cell *matCellDef="let user">{{ user.email}}</td>
+            </ng-container>
+             <ng-container matColumnDef="phone">
+              <th mat-header-cell *matHeaderCellDef>Phone</th>
+              <td mat-cell *matCellDef="let user">{{ user.phoneNumber}}</td>
+            </ng-container>
+              <ng-container matColumnDef="joinedDate">
+              <th mat-header-cell *matHeaderCellDef>Joined Date</th>
+              <td mat-cell *matCellDef="let user">{{ user.createdDate | date:'MM-dd-yyyy'}}</td>
+            </ng-container>
+             <ng-container matColumnDef="enabled">
+              <th mat-header-cell *matHeaderCellDef>Enabled</th>
+              <td mat-cell *matCellDef="let user">{{ user.enabled}}</td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="['avatar', 'firstName', 'lastName','email','phone','joinedDate','enabled']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['avatar', 'firstName', 'lastName','email','phone','joinedDate','enabled'];"></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+      <!-- 
+      <mat-card class="dashboard-card chart-card" matRipple>
+        <mat-card-title>User Growth</mat-card-title>
+        <mat-card-content>
+          <div class="chart-placeholder">
+            <mat-icon class="chart-icon">show_chart</mat-icon>
+            <span>Interactive chart coming soon!</span>
+          </div>
+        </mat-card-content>
+      </mat-card>-->
+    </div>
+  </div>
+</app-side-bar>

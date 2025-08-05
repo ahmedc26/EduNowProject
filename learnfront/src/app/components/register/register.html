@@ -1,0 +1,116 @@
+<div class="account-container">
+  
+  <div class="account-card" [class.flipped]="isSignUp">
+    <div class="account-card-inner">
+      <!-- Sign In Side -->
+      <div class="account-front">
+        <div class="account-header">
+          <img src="/assets/images/signin.jpg" alt="Logo" class="logo">
+          <h2>Welcome Back</h2>
+          <p>Sign in to continue your learning journey</p>
+        </div>
+
+        <form class="account-form" [formGroup]="signInForm" (ngSubmit)="onSignIn()">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="email" required>
+            <mat-icon matSuffix>mail_outline</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" required>
+            <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <div class="account-actions">
+            <button  mat-raised-button color="primary" type="submit" [disabled]="signInForm.invalid">
+              Sign In
+            </button>
+            <a href="#" class="forgot-password">Forgot password?</a>
+          </div>
+
+          <div class="social-login">
+            <div class="divider">
+              <span>or continue with</span>
+            </div>
+            <div class="social-buttons">
+              <button mat-stroked-button type="button">
+                <img src="/assets/images/logo.svg" class="social-icon" alt="Google">
+               
+              </button>
+              <button mat-stroked-button type="button">
+                <img src="/assets/images/microsoft.svg" class="social-icon" alt="Microsoft">
+              </button>
+            </div>
+          </div>
+
+          <div class="account-toggle">
+            Don't have an account? 
+            <a (click)="toggleForm()">Sign up</a>
+          </div>
+        </form>
+      </div>
+
+      <!-- Sign Up Side -->
+      <div class="account-back">
+        <div class="account-header">
+          <img src="/assets/images/signup.svg" width="150px" alt="Logo" class="logo">
+          <h2>Create Account</h2>
+          <p>Join our learning community today</p>
+        </div>
+
+        <form class="account-form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>First Name</mat-label>
+              <input matInput formControlName="firstName" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Last Name</mat-label>
+              <input matInput formControlName="lastName" required>
+            </mat-form-field>
+          </div>
+         <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="phoneNumber" type="phone" required>
+            <mat-icon matSuffix>phone_outline</mat-icon>
+          </mat-form-field> 
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="email" required>
+            <mat-icon matSuffix>mail_outline</mat-icon>
+          </mat-form-field>
+</div>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" required>
+            <mat-hint>At least 8 characters with 1 number and 1 special character</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>birthDate</mat-label>
+            <input matInput formControlName="birthDate" type="date" required>
+          </mat-form-field>
+
+          <mat-checkbox formControlName="agreeToTerms" required>
+            I agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a>
+          </mat-checkbox>
+
+          <button mat-raised-button color="primary" type="submit">
+            Sign Up
+          </button>
+
+          <div class="account-toggle">
+            Already have an account? 
+            <a (click)="toggleForm()">Sign in</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

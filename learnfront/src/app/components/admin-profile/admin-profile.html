@@ -1,0 +1,56 @@
+<app-side-bar>
+  <div class="profile-container">
+    <div class="profile-card">
+      <div class="profile-avatar-section">
+        <img src="/assets/images/logo.svg" alt="Admin Avatar" class="profile-avatar" />
+        <div class="profile-info">
+          <div class="profile-name">{{userName}}</div>
+          <div class="profile-role">Administrator</div>
+          <div class="profile-email"></div>
+        </div>
+      </div>
+      <div class="profile-actions">
+        <button mat-raised-button color="primary">
+          <mat-icon>edit</mat-icon> Edit Profile
+        </button>
+        <button mat-raised-button color="accent">
+          <mat-icon>lock</mat-icon> Change Password
+        </button>
+        <button mat-raised-button  (click)="logout()"   cliccolor="warn" >
+          <mat-icon>logout</mat-icon> Logout
+        </button>
+      </div>
+    </div>
+    <div class="profile-details-card" *ngIf="currentUser">
+      <h3>Profile Details</h3>
+      <div class="details-row">
+        <span class="details-label">ID:</span>
+        <span>{{currentUser.idUser}}</span>
+      </div>
+      <div class="details-row">
+        <span class="details-label">First Name:</span>
+        <span>{{currentUser.firstName}}</span>
+      </div>
+      <div class="details-row">
+        <span class="details-label">Last Name:</span>
+        <span>{{currentUser.lastName}}</span>
+      </div>
+      <div class="details-row">
+        <span class="details-label">Email:</span>
+        <span>{{currentUser.email}}</span>
+      </div>
+        <div class="details-row">
+        <span class="details-label">Phone:</span>
+        <span>{{currentUser.phoneNumber}}</span>
+      </div>
+      <div class="details-row">
+        <span class="details-label">Role:</span>
+        <span>Administrator</span>
+      </div>
+      <div class="details-row">
+        <span class="details-label">Joined at:</span>
+        <span>{{currentUser.createdDate | date:'yyyy-MM-dd'}}</span>
+      </div>
+    </div>
+  </div>
+</app-side-bar>

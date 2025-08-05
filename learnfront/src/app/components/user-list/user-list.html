@@ -1,0 +1,48 @@
+ <app-side-bar>
+     
+<div class="container">
+    <div class="search-bar">
+          <mat-form-field appearance="outline">
+            <mat-label>Search users...</mat-label>
+            <input matInput type="text" placeholder="Search by name or email">
+            <button mat-icon-button matSuffix><mat-icon>search</mat-icon></button>
+          </mat-form-field>
+        </div>
+    <h2>List of students</h2>
+   
+    <button routerLink="/admin/register" class="reg-button">Add User</button>
+    <table >
+        <thead >
+            <tr >
+                <th>ID</th>
+                <th>Prenom</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Birthday</th>
+                <th>Phone</th>
+                <th>Enabled</th>
+                <th>joined Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody >
+            <tr *ngFor="let user of users" key="user.id" class="list-user">
+                <td>{{ user.idUser }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.birthDate }}</td>
+                <td>{{ user.phoneNumber }}</td>
+                <td>{{ user.enabled }}</td>
+                <td>{{ user.createdDate | date:'short'}}</td>
+                <td>
+                    <button mat-icon-button color="warn" (click)="deleteUser(user.idUser)">
+                        <mat-icon>delete</mat-icon>
+    </button>
+                    <button class="update-button" (click)="updateUser(user.idUser)" >Update</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</app-side-bar>

@@ -1,0 +1,37 @@
+<mat-sidenav-container class="sidebar-container">
+  <mat-sidenav mode="side" opened class="sidebar">
+    <div class="sidebar-header">
+      <mat-icon>dashboard</mat-icon>
+      <span class="sidebar-title">{{userName}}</span>
+    </div>
+    <nav class="sidebar-links">
+      <a mat-list-item routerLink="/Admin-home" routerLinkActive="active">
+        <mat-icon>home</mat-icon>
+        <span>Dashboard</span>
+      </a>
+      <a mat-list-item routerLink="/user-list" routerLinkActive="active">
+        <mat-icon>group</mat-icon>
+        <span>Users</span>
+      </a>
+      <a mat-list-item routerLink="/settings" routerLinkActive="active">
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer" *ngIf="userName">
+
+      <div class="sidebar-user">
+        <mat-icon>account_circle</mat-icon>
+        <a href="/Admin-profile">My Profile</a>
+        
+  
+        <button mat-icon-button (click)="logout()" matTooltip="Logout">
+          <mat-icon>logout</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
