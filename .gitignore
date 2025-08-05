@@ -1,0 +1,6 @@
+# Backend sensitive files
+learn/src/main/resources/application-dev.yml
+learn/target/
+
+# Frontend node_modules
+learnfront/node_modules/
