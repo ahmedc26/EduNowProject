@@ -39,7 +39,8 @@ public class EmailService {
                 StandardCharsets.UTF_8.name());
     Map<String, Object> properties = new HashMap<>();
     properties.put("username", username);
-    properties.put("confirmationUrl", confirmationUrl);
+    String link = "http://localhost:8088/api/v1/auth/activate-account?token=" + activationCode;
+    properties.put("confirmationUrl", link);
     properties.put("activationCode", activationCode);
 
 

@@ -3,8 +3,8 @@
   justify-content: center;
   /*align-items: center;*/
   min-height: 100vh;
-  background: linear-gradient(135deg, #e9f2ff 0%, #7ea3df 100%);
-  padding: 2rem;
+  background: linear-gradient(120deg, #78d9e6 0%, #d26be4  100%);
+  padding: 1rem;
 }
 
 .account-card {
@@ -12,6 +12,7 @@
   max-width: 800px;
   height: 600px;
   perspective: 1000px;
+  
 }
 
 .account-card-inner {
@@ -20,6 +21,7 @@
   height: 100%;
   transition: transform 0.8s;
   transform-style: preserve-3d;
+
 }
 
 .account-card.flipped .account-card-inner {

@@ -13,7 +13,7 @@ export class AdminHome {
 totalUsers: number = 0;
 
   renderer = inject(Renderer2);
-  styleSelectorToggle!: boolean; // open configuration menu
+  styleSelectorToggle!: boolean;
   setFontFamily!: string;
 userName: string = '';
  users: any[] = [];

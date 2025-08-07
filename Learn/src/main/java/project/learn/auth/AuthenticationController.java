@@ -10,7 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import project.learn.Repository.UserRepo;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/auth")
@@ -35,9 +38,10 @@ public class AuthenticationController {
     }
 
     @GetMapping("/activate-account")
-    public void confirm(@RequestParam String token) throws MessagingException {
+    public ModelAndView confirm(@RequestParam String token) throws MessagingException {
         service.activateAccount(token);
-
+        ModelAndView modelAndView = new ModelAndView("ACTIVATED");
+        return modelAndView;
     }
 
 

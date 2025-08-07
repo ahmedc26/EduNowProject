@@ -21,14 +21,14 @@ import { CommonModule } from '@angular/common';
  template: `
     <h2 mat-dialog-title>Activate Account</h2>
     <mat-dialog-content>
-      <p>Please enter the activation code sent to your email:</p>
-      <mat-form-field>
+      <p>Confirmation link has been sent in email</p>
+      <!-- <mat-form-field>
         <input matInput [(ngModel)]="code" placeholder="Activation Code" />
       </mat-form-field>
     </mat-dialog-content>
-    <mat-dialog-actions align="end">
-      <button mat-button (click)="onCancel()">Cancel</button>
-      <button mat-raised-button color="primary" (click)="onActivate()">Activate</button>
+      <button mat-raised-button color="primary" (click)="onActivate()">Activate</button>-->
+      <mat-dialog-actions align="end">
+        <button mat-button (click)="onCancel()">ok</button>
     </mat-dialog-actions>
   `})
 export class ActivateDialog {
