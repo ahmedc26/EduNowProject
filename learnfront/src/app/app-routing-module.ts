@@ -8,6 +8,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { AdminProfile } from './components/admin-profile/admin-profile';
 import { UserList } from './components/user-list/user-list';
 import { UserUpdate } from './components/user-update/user-update';
+import { Level } from './components/level/level';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'Student-home', component:StudentHome},
   { path: 'Admin-profile', component:AdminProfile,canActivate:[AuthGuardService]},
   { path: 'user-list', component:UserList, canActivate:[AuthGuardService]},
-  { path: 'update-user/:idUser', component: UserUpdate, canActivate:[AuthGuardService]}
+  { path: 'update-user/:idUser', component: UserUpdate, canActivate:[AuthGuardService]},
+  { path: 'level', component: Level, canActivate:[AuthGuardService]}
 ];
 
 @NgModule({

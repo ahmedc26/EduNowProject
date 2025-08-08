@@ -1,6 +1,7 @@
 package project.learn.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
@@ -22,9 +23,13 @@ public class Level {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idLevel;
     private String name_Level;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "level_type")
+    private LevelType level_Type;
 
 
     @OneToMany(mappedBy = "level", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Subject> subjects;
 
 

@@ -26,6 +26,7 @@ import { MatDivider } from '@angular/material/divider';
 import { AdminProfile } from './components/admin-profile/admin-profile';
 import { UserList } from './components/user-list/user-list';
 import { UserUpdate } from './components/user-update/user-update';
+import { Level } from './components/level/level';
 
 
 
@@ -39,7 +40,8 @@ import { UserUpdate } from './components/user-update/user-update';
     SideBar,
     AdminProfile,
     UserList,
-    UserUpdate
+    UserUpdate,
+    Level
 
     
   ],
