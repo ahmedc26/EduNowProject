@@ -65,6 +65,16 @@ body {
   grid-template-columns: 1fr 2fr;
   gap: 30px;
 }
+.title-2{
+  margin-top: 10px;
+  font-size: 25px;
+}
+.subject-content{
+display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+  margin-top: 30px;
+}
 
 @media (max-width: 768px) {
   .content {
@@ -150,7 +160,13 @@ body {
   background-color: var(--white);
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  overflow: hidden  ;
+  height: 350px; 
+}
+.list-container td {
+  
+  max-height: 300px; 
+  overflow-y: auto;
 }
 
 .list-header {
@@ -201,33 +217,67 @@ body {
 }
 
 /* Table Styles */
-table {
+
+.table-container {
+  height: 275px;
+  overflow: auto;
+  position: relative;
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.table-container table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
 }
-
-thead {
-  background-color: var(--primary-color);
-  color: white;
+.table-container thead {
+  position: sticky;
+  top: 0;
+  background-color: var(--white);
+  z-index: 10;
 }
-
-th, td {
-  padding: 15px;
+.table-container th,
+.table-container td {
+  padding: 12px 15px;
   text-align: left;
-  border-bottom: 1px solid var(--medium-gray);
-  
+  border-bottom: 1px solid #ddd;
+}
+.table-container th {
+  background-color: #f5f5f5;
+  font-weight: 600;
 }
 
-th {
-  font-weight: 500;
-  text-transform: uppercase;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-  background-color: #e0e0e0;
-  color: black;
+.table-container tbody {
+  display: block;
+  overflow-y: auto;
 }
 
+.table-container tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.table-container tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.table-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 tbody tr:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
@@ -310,4 +360,19 @@ button[mat-icon-button]:hover {
 .empty-state h3 {
   margin-bottom: 10px;
   font-weight: 500;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
 }

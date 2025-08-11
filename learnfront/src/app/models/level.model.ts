@@ -4,7 +4,7 @@ export enum LevelType {
 }
 
 
-export interface Levels {
+export interface Level {
     idLevel?: number;
     name_Level: string;
     level_Type: LevelType;

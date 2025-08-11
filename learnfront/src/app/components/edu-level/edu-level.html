@@ -1,0 +1,247 @@
+<app-side-bar>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level Management</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>
+                <mat-icon>school</mat-icon>
+                Level Management
+            </h1>
+            <button class="btn" id="refreshBtn">
+                <mat-icon>refresh</mat-icon>
+                Refresh
+            </button>
+        </div>
+
+        <div class="content">
+
+            <div class="form-container">
+                <h2>
+                    <mat-icon>add_circle</mat-icon>
+                    Add New Level
+                </h2>
+                
+                <!-- Success/Error Messages -->
+                <div class="status-message success-message" id="successMessage" style="display: none;">
+                    <mat-icon>check_circle</mat-icon>
+                    <span id="successText">Level added successfully!</span>
+                </div>
+                
+                <div class="status-message error-message" id="errorMessage" style="display: none;">
+                    <mat-icon>error</mat-icon>
+                    <span id="errorText">Error occurred while adding level.</span>
+                </div>
+
+               <form #levelForm="ngForm" (ngSubmit)="addEntity('level',newLevel,'level')">
+            <div class="form-group">
+        <label for="levelName">Level Name</label>
+        <input type="text" id="levelName" name="levelName" 
+               [(ngModel)]="newLevel.name_Level" 
+               placeholder="Enter level name" required>
+            </div>
+    
+            <div class="form-group">
+            <label for="levelType">Level Type</label>
+            <select id="levelType" name="levelType" 
+                [(ngModel)]="newLevel.level_Type" required>
+            <option value="">Select Level Type</option>
+            <option value="PRIMARY">PRIMARY</option>
+            <option value="SECONDARY">SECONDARY</option>
+            </select>
+             </div>
+    
+              <button type="submit" class="btn" [disabled]="!levelForm.form.valid">
+             <mat-icon>save</mat-icon>
+           Save Level
+                </button>
+            </form>
+            </div>
+
+
+            <div class="list-container">
+                <div class="list-header">
+                    <h2>
+                        <mat-icon>list_alt</mat-icon>
+                        Levels List
+                    </h2>
+                    <div class="search-box">
+                        <mat-icon>search</mat-icon>
+                        <input type="text" placeholder="Search levels..." id="searchInput">
+                    </div>
+                </div>
+
+                <ul class="level-list" id="levelList">
+
+                <div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Level</th>
+        <th>Type</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let level of levels" class="list-levels">
+        <td>{{level.idLevel}}</td>
+        <td>{{level.name_Level}}</td>
+        <td>{{level.level_Type}}</td>
+        <td>
+          <button mat-icon-button color="warn" (click)="Delete('level', level.idLevel, 'level')">
+            <mat-icon>delete</mat-icon>
+          </button>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+                </ul>  
+            </div> 
+        </div>
+<h2 class="title-2">
+    <mat-icon>assignment</mat-icon>
+    Subject Management</h2>
+       
+       <div class="subject-content">
+
+            <div class="form-container">
+                <h2>
+                    <mat-icon>add_circle</mat-icon>
+                    Add New Level
+                </h2>
+                
+                <!-- Success/Error Messages -->
+                <div class="status-message success-message" id="successMessage" style="display: none;">
+                    <mat-icon>check_circle</mat-icon>
+                    <span id="successText">Subject added successfully!</span>
+                </div>
+                
+                <div class="status-message error-message" id="errorMessage" style="display: none;">
+                    <mat-icon>error</mat-icon>
+                    <span id="errorText">Error occurred while adding Subject.</span>
+                </div>
+
+               <form #levelForm="ngForm">
+            <div class="form-group">
+        <label for="SubjectName">Subject Name</label>
+        <input type="text" id="SubjectName" name="SubjectName" 
+               
+               placeholder="Enter Subject name" required>
+            </div>
+    
+            <div class="form-group">
+            <label for="levelType">Subject Type</label>
+           <select id="levelSelect" name="levelSelect" 
+          [(ngModel)]="selectedLevelId" required
+          class="form-control">
+               <option value="" disabled>Select a Level</option>
+    <option *ngFor="let level of levels" 
+            [value]="level.idLevel">
+      {{level.name_Level}} ({{level.level_Type}})
+    </option>
+            </select>
+             </div>
+    
+              <button type="submit" class="btn" (click)="addEntity('subject',newSubject,'Subject')">
+             <mat-icon>save</mat-icon>
+           Save Subject
+                </button>
+            </form>
+            </div>
+              <ul class="level-list" id="levelList">
+
+                <div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Subject</th>
+        <th>Level</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let Subject of Subjects" class="list-levels">
+        <td>{{Subject.idSubject}}</td>
+        <td>{{Subject.name_Subject}}</td>
+        <td>{{Subject.level.name_Level}} ({{Subject.level.level_Type}})</td>
+        <td>
+          <button mat-icon-button color="warn" (click)="Delete('Subject', Subject.idSubject, 'subject')" >
+            <mat-icon>delete</mat-icon>
+        </button>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+                </ul>
+                
+            
+            
+        
+       </div>
+
+
+    </div>
+
+
+
+    <script>
+        // This would be replaced with actual JavaScript for your framework (Angular, React, etc.)
+        document.getElementById('levelForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulate form submission
+            const levelName = document.getElementById('levelName').value;
+            
+            // Show success message (in a real app, this would be after API call)
+            document.getElementById('successText').textContent = `Level "${levelName}" added successfully!`;
+            document.getElementById('successMessage').style.display = 'flex';
+            document.getElementById('errorMessage').style.display = 'none';
+            
+            // Reset form
+            this.reset();
+            
+            // Hide message after 3 seconds
+            setTimeout(() => {
+                document.getElementById('successMessage').style.display = 'none';
+            }, 3000);
+            
+            // In a real app, you would add the new level to the list here
+        });
+        
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const items = document.querySelectorAll('.level-item');
+            
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+        
+        // Refresh button
+        document.getElementById('refreshBtn').addEventListener('click', function() {
+            // In a real app, this would reload data from the server
+            alert('Refreshing data...');
+        });
+    </script>
+</body>
+</html>

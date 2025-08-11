@@ -26,7 +26,7 @@ public class Subject {
 
 
     @ManyToOne
-    @JoinColumn(name = "idLevel", nullable = false)
+    @JoinColumn(name = "idLevel")
     private Level level;
 
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
