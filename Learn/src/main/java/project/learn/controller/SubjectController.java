@@ -31,4 +31,10 @@ public class SubjectController {
         subjectService.deleteSubject(idSubject);
     }
 
+    @PostMapping("/assignSubjectToLevel/{idLevel}")
+    public Subject assignSubjectToLevel(@RequestBody Subject subject,@PathVariable Long idLevel){
+        return subjectService.AddSubject(subject,idLevel);
+    }
+
+
 }

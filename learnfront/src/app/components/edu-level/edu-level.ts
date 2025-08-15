@@ -4,6 +4,7 @@ import { LevelService } from '../../services/level.service';
 import { Level, LevelType } from '../../models/level.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from '../../models/subject.model';
+
 @Component({
   selector: 'app-edu-level',
   standalone: false,
@@ -12,6 +13,7 @@ import { Subject } from '../../models/subject.model';
 })
 export class EduLevel {
 selectedLevelId: Level | null = null;
+
 levels: any[] = [];
 Subjects: any [] = [];
 newLevel: Level = {
@@ -49,6 +51,32 @@ constructor( private router:Router, private levelService :LevelService, private 
       (error) =>{ console.error('Error fetching subjects',error);}
     )}
 
+addSubject(){
+  if (!this.selectedLevelId) {
+    this.snackBar.open('Please select a level first', 'Close', {
+      duration: 3000,
+      panelClass: ['error-snackbar']
+    });
+    return;
+  }
+  const levelId = Number(this.selectedLevelId);
+  this.levelService.addSubject(this.newSubject,levelId).subscribe({
+    next: (response) =>{
+      this.loadAllSubjects();
+       this.snackBar.open(`Subject added successfully`, 'Close', {
+        duration: 3000
+      });
+      this.newSubject = { name_Subject: '', level: undefined };
+    },
+  error: (err) => {
+      console.error(`Error adding Subject:`, err);
+      this.snackBar.open(`Error adding Subject`, 'Close', {
+        duration: 3000,
+        panelClass: ['error-snackbar']
+      });
+    }
+  });
+}
 
 addEntity(entityType: 'level' | 'subject', entityData: Level | Subject, entityName: string) {
     if (entityType === 'subject') {

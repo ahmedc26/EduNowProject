@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import project.learn.Entity.Level;
+import project.learn.Entity.Subject;
 import project.learn.Service.LevelService;
 
 import java.util.List;
@@ -23,5 +24,6 @@ public class LevelController {
 
     @DeleteMapping("/delete-Level/{idLevel}")
     public void deleteLevel(@PathVariable Long idLevel){ levelService.deleteLevel(idLevel);}
+
 
 }

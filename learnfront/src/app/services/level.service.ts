@@ -27,8 +27,8 @@ constructor( private http: HttpClient ){}
     return this.http.get<any[]>(`${this.apiUrl}/getallSubjects`)
   }
 
-  addSubject(subject: Subject): Observable<EduLevel> {
-    return this.http.post<EduLevel>(`${this.apiUrl}/addSubject`, subject);
+  addSubject(subject: Subject,idLevel:number): Observable<EduLevel> {
+    return this.http.post<EduLevel>(`${this.apiUrl}/assignSubjectToLevel/${idLevel}`, subject);
   }
 
   deleteSubject(idSubject:number):Observable<void>{

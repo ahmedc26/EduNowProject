@@ -16,10 +16,7 @@
                 <mat-icon>school</mat-icon>
                 Level Management
             </h1>
-            <button class="btn" id="refreshBtn">
-                <mat-icon>refresh</mat-icon>
-                Refresh
-            </button>
+
         </div>
 
         <div class="content">
@@ -29,8 +26,7 @@
                     <mat-icon>add_circle</mat-icon>
                     Add New Level
                 </h2>
-                
-                <!-- Success/Error Messages -->
+
                 <div class="status-message success-message" id="successMessage" style="display: none;">
                     <mat-icon>check_circle</mat-icon>
                     <span id="successText">Level added successfully!</span>
@@ -118,10 +114,10 @@
             <div class="form-container">
                 <h2>
                     <mat-icon>add_circle</mat-icon>
-                    Add New Level
+                    Add New Subject
                 </h2>
                 
-                <!-- Success/Error Messages -->
+
                 <div class="status-message success-message" id="successMessage" style="display: none;">
                     <mat-icon>check_circle</mat-icon>
                     <span id="successText">Subject added successfully!</span>
@@ -134,9 +130,9 @@
 
                <form #levelForm="ngForm">
             <div class="form-group">
-        <label for="SubjectName">Subject Name</label>
-        <input type="text" id="SubjectName" name="SubjectName" 
-               
+        <label for="name_Subject">Subject Name</label>
+        <input type="text" id="name_Subject" name="name_Subject" 
+               [(ngModel)]="newSubject.name_Subject"
                placeholder="Enter Subject name" required>
             </div>
     
@@ -153,15 +149,29 @@
             </select>
              </div>
     
-              <button type="submit" class="btn" (click)="addEntity('subject',newSubject,'Subject')">
+              <button type="submit" class="btn" (click)="addSubject()">
              <mat-icon>save</mat-icon>
            Save Subject
                 </button>
             </form>
             </div>
+
+            <div class="list-container">
+                <div class="list-header">
+                    <h2>
+                        <mat-icon>list_alt</mat-icon>
+                        Subjects List
+                    </h2>
+                    <div class="search-box">
+                        <mat-icon>search</mat-icon>
+                        <input type="text" placeholder="Search Subjects ..." id="searchInput">
+                    </div>
+                </div>
+            
               <ul class="level-list" id="levelList">
 
                 <div class="table-container">
+
   <table>
     <thead>
       <tr>
@@ -195,7 +205,7 @@
 
 
     </div>
-
+</div>
 
 
     <script>
@@ -222,7 +232,7 @@
             // In a real app, you would add the new level to the list here
         });
         
-        // Search functionality
+
         document.getElementById('searchInput').addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase();
             const items = document.querySelectorAll('.level-item');
@@ -237,9 +247,8 @@
             });
         });
         
-        // Refresh button
+
         document.getElementById('refreshBtn').addEventListener('click', function() {
-            // In a real app, this would reload data from the server
             alert('Refreshing data...');
         });
     </script>
