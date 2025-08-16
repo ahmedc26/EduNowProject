@@ -18,11 +18,12 @@ import { AdminHome } from './components/admin-home/admin-home';
 import { StudentHome } from './components/student-home/student-home';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
-
+import { MatPaginator } from '@angular/material/paginator';
 import { MatToolbar } from '@angular/material/toolbar';
 import { SideBar } from './components/side-bar/side-bar';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { MatDivider } from '@angular/material/divider';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AdminProfile } from './components/admin-profile/admin-profile';
 import { UserList } from './components/user-list/user-list';
 import { UserUpdate } from './components/user-update/user-update';
@@ -67,7 +68,9 @@ import { EduLevel } from './components/edu-level/edu-level';
     MatSidenav,
     MatSidenavContainer,
     MatSidenavContent,
-    MatDivider
+    MatDivider,
+    MatSnackBarModule,
+    MatPaginator
   ],
   providers: [
     provideBrowserGlobalErrorListeners()

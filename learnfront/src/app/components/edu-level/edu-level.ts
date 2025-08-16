@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, Type, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LevelService } from '../../services/level.service';
 import { Level, LevelType } from '../../models/level.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from '../../models/subject.model';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { FormControl } from '@angular/forms'; 
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edu-level',
@@ -26,30 +29,152 @@ newLevel: Level = {
   level: undefined
 };
 
+ paginatedLevels: any[] = [];
+  paginatedSubjects: any[] = [];
 
 
+  levelsPageSize = 4;
+  subjectsPageSize = 4;
+  pageSizeOptions = [4, 8, 25, 100];
+  levelsLength = 0;
+  subjectsLength = 0;
+  levelsPageIndex = 0;
+  subjectsPageIndex = 0;
+  /*@ViewChild(MatPaginator) paginator!: MatPaginator;*/
+  @ViewChild('levelsPaginator') levelsPaginator!: MatPaginator;
+  @ViewChild('subjectsPaginator') subjectsPaginator!: MatPaginator;
   showSuccess = false;
   showError = false;
   message = '';
+  filteredLevels: any[] = []; 
+  filteredSubjects: any[] = []; 
+  levelsSearchControl = new FormControl('');
+  subjectsSearchControl = new FormControl('');
+
 constructor( private router:Router, private levelService :LevelService, private snackBar:MatSnackBar){}
 
  ngOnInit(){
   this.loadAllLevels();
   this.loadAllSubjects();
- }
+ this.levelsSearchControl.valueChanges
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged()
+      )
+      .subscribe(searchTerm => {
+        this.applyFilter(searchTerm || '', 'Levels');
+      });
+    
+    // Setup search for Subjects
+    this.subjectsSearchControl.valueChanges
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged()
+      )
+      .subscribe(searchTerm => {
+        this.applyFilter(searchTerm || '', 'Subjects');
+      });
+  }
 
+  applyFilter(filterValue: string, type: 'Levels' | 'Subjects') {
+    const searchTerm = filterValue.trim().toLowerCase();
+    
+    if (type === 'Levels') {
+      if (!searchTerm) {
+        this.filteredLevels = [...this.levels];
+      } else {
+        this.filteredLevels = this.levels.filter(level => 
+          level.name_Level.toLowerCase().includes(searchTerm));
+      }
+      this.levelsLength = this.filteredLevels.length;
+      this.updatePaginatedData('Levels');
+      
 
- loadAllLevels() {
+      if (this.levelsPaginator) {
+        this.levelsPaginator.firstPage();
+      }
+    } else {
+      if (!searchTerm) {
+        this.filteredSubjects = [...this.Subjects];
+      } else {
+        this.filteredSubjects = this.Subjects.filter(subject => 
+          subject.name_Subject.toLowerCase().includes(searchTerm));
+      }
+      this.subjectsLength = this.filteredSubjects.length;
+      this.updatePaginatedData('Subjects');
+      
+      // Reset to first page
+      if (this.subjectsPaginator) {
+        this.subjectsPaginator.firstPage();
+      }
+    }
+  }
+
+loadAllLevels() {
     this.levelService.getLevels().subscribe(
-      (data) => { this.levels = data;},
-      (error) =>{ console.error('Error fetching levels',error);}
-    )}
+      (data) => { 
+         this.levels = data;
+         this.filteredLevels = [...this.levels];
+        this.levelsLength = this.levels.length;
+        this.updatePaginatedData('Levels');
+      },
+      (error) => {
+        console.error('Error fetching levels', error);
+        this.snackBar.open('Error loading levels', 'Close', {
+          duration: 3000,
+          panelClass: ['error-snackbar']
+        });
+      }
+    );
+  }
+  
 
-  loadAllSubjects() {
+
+
+loadAllSubjects() {
     this.levelService.getSubjects().subscribe(
-      (data) => { this.Subjects = data;},
-      (error) =>{ console.error('Error fetching subjects',error);}
-    )}
+      (data) => { 
+        this.Subjects = data;
+        this.filteredSubjects = [...this.Subjects];
+        this.subjectsLength = this.Subjects.length;
+        this.updatePaginatedData('Subjects');
+      },
+      (error) => {
+        console.error('Error fetching subjects', error);
+        this.snackBar.open('Error loading subjects', 'Close', {
+          duration: 3000,
+          panelClass: ['error-snackbar']
+        });
+      }
+    );
+  }
+
+
+
+ onLevelsPageChange(event: PageEvent) {
+    this.levelsPageSize = event.pageSize;
+    this.levelsPageIndex = event.pageIndex;
+    this.updatePaginatedData('Levels');
+  }
+
+  onSubjectsPageChange(event: PageEvent) {
+    this.subjectsPageSize = event.pageSize;
+    this.subjectsPageIndex = event.pageIndex;
+    this.updatePaginatedData('Subjects');
+  }
+
+  private updatePaginatedData(type: 'Levels' |  'Subjects') {
+     if (type === 'Levels') {
+      const startIndex = this.levelsPageIndex * this.levelsPageSize;
+      const endIndex = startIndex + this.levelsPageSize;
+      this.paginatedLevels = this.filteredLevels.slice(startIndex, endIndex);
+    } else {
+      const startIndex = this.subjectsPageIndex * this.subjectsPageSize;
+      const endIndex = startIndex + this.subjectsPageSize;
+      this.paginatedSubjects = this.filteredSubjects.slice(startIndex, endIndex);
+    }
+  }
+
 
 addSubject(){
   if (!this.selectedLevelId) {
@@ -127,9 +252,7 @@ addEntity(entityType: 'level' | 'subject', entityData: Level | Subject, entityNa
         }
       })
     }
+    
   }
-
-     
-
 
 }

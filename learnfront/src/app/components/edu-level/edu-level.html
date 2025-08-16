@@ -71,36 +71,43 @@
                     </h2>
                     <div class="search-box">
                         <mat-icon>search</mat-icon>
-                        <input type="text" placeholder="Search levels..." id="searchInput">
+                        <input type="text" placeholder="Search levels..." [formControl]="levelsSearchControl">
                     </div>
                 </div>
 
                 <ul class="level-list" id="levelList">
 
                 <div class="table-container">
+            
   <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Level</th>
-        <th>Type</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let level of levels" class="list-levels">
-        <td>{{level.idLevel}}</td>
-        <td>{{level.name_Level}}</td>
-        <td>{{level.level_Type}}</td>
-        <td>
-          <button mat-icon-button color="warn" (click)="Delete('level', level.idLevel, 'level')">
-            <mat-icon>delete</mat-icon>
-          </button>
-
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Level</th>
+                        <th>Type</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let level of paginatedLevels" class="list-levels">
+                        <td>{{level.idLevel}}</td>
+                        <td>{{level.name_Level}}</td>
+                        <td>{{level.level_Type}}</td>
+                        <td>
+                            <button mat-icon-button color="warn" (click)="Delete('level', level.idLevel, 'level')">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+<mat-paginator #levelsPaginator
+  [pageSize]="levelsPageSize"
+  [pageSizeOptions]="pageSizeOptions"
+  [length]="levelsLength"
+  (page)="onLevelsPageChange($event)">
+</mat-paginator>
 </div>
                 </ul>  
             </div> 
@@ -164,7 +171,7 @@
                     </h2>
                     <div class="search-box">
                         <mat-icon>search</mat-icon>
-                        <input type="text" placeholder="Search Subjects ..." id="searchInput">
+                         <input matInput [formControl]="subjectsSearchControl" placeholder="Search subjects...">
                     </div>
                 </div>
             
@@ -172,30 +179,37 @@
 
                 <div class="table-container">
 
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Subject</th>
-        <th>Level</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let Subject of Subjects" class="list-levels">
-        <td>{{Subject.idSubject}}</td>
-        <td>{{Subject.name_Subject}}</td>
-        <td>{{Subject.level.name_Level}} ({{Subject.level.level_Type}})</td>
-        <td>
-          <button mat-icon-button color="warn" (click)="Delete('Subject', Subject.idSubject, 'subject')" >
-            <mat-icon>delete</mat-icon>
-        </button>
-
-        </td>
-      </tr>
-    </tbody>
-  </table>
+   <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Subject</th>
+                            <th>Level</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let Subject of paginatedSubjects" class="list-levels">
+                            <td>{{Subject.idSubject}}</td>
+                            <td>{{Subject.name_Subject}}</td>
+                            <td>{{Subject.level?.name_Level}} ({{Subject.level?.level_Type}})</td>
+                            <td>
+                                <button mat-icon-button color="warn" 
+                                        (click)="Delete('Subject', Subject.idSubject, 'subject')">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+<mat-paginator #subjectsPaginator
+  [pageSize]="subjectsPageSize"
+  [pageSizeOptions]="pageSizeOptions"
+  [length]="subjectsLength"
+  (page)="onSubjectsPageChange($event)">
+</mat-paginator>
 </div>
+
                 </ul>
                 
             
