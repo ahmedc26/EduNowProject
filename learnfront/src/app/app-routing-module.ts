@@ -9,6 +9,11 @@ import { AdminProfile } from './components/admin-profile/admin-profile';
 import { UserList } from './components/user-list/user-list';
 import { UserUpdate } from './components/user-update/user-update';
 import { EduLevel } from './components/edu-level/edu-level';
+import { UserHome } from './components/user-home/user-home';
+import { NavBar } from './components/nav-bar/nav-bar';
+import { Courses } from './components/courses/courses';
+import { UserProfile } from './components/user-profile/user-profile';
+import { UserLevels } from './components/user-levels/user-levels';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -20,6 +25,11 @@ const routes: Routes = [
   { path: 'user-list', component:UserList, canActivate:[AuthGuardService]},
   { path: 'update-user/:idUser', component: UserUpdate, canActivate:[AuthGuardService]},
   { path: 'level', component: EduLevel, canActivate:[AuthGuardService]},
+  { path: 'user-home', component: UserHome, canActivate:[AuthGuardService]},
+  { path: 'nav-bar', component: NavBar, canActivate:[AuthGuardService]},
+  { path: 'courses', component: Courses, canActivate:[AuthGuardService]},
+  { path: 'user-profile',component:UserProfile, canActivate:[AuthGuardService]},
+  { path: 'user-levels',component:UserLevels, canActivate:[AuthGuardService]}
 ];
 
 @NgModule({

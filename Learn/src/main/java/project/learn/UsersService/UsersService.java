@@ -9,7 +9,7 @@ import project.learn.Repository.UserRepo;
 import project.learn.user.User;
 
 @Service
-public class UsersService {
+public class    UsersService {
 
     @Autowired
     UserRepo userRepo;

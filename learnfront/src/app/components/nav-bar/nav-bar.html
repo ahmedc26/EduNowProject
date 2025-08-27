@@ -1,0 +1,63 @@
+<nav class="top-nav">
+    <div class="brand">
+      <img src="/assets/images/logo.svg" class="brand-logo" alt="Logo">
+      <span class="brand-name">LearnHub</span>
+    </div>
+    
+   <div class="nav-links">
+  <a routerLink="/user-home" routerLinkActive="active">Home</a>
+  <a routerLink="/courses" routerLinkActive="active">Courses</a>
+  <a routerLink="/progress" routerLinkActive="active">Progress</a>
+  <a routerLink="/resources" routerLinkActive="active">Resources</a>
+</div>
+    
+    <div class="nav-actions">
+      <a class="nav-username" routerLink="/user-profile" routerLinkActive="active">{{userName}}</a>
+      <button class="logout-btn" (click)="logout()">
+        <span class="material-icons">logout</span>
+        Logout
+      </button>
+    </div>
+     <script>
+    // Simple ripple effect implementation
+    document.querySelectorAll('.mat-ripple').forEach(element => {
+      element.addEventListener('click', function(e) {
+        const ripple = document.createElement('div');
+        ripple.classList.add('ripple-effect');
+        ripple.style.position = 'absolute';
+        ripple.style.borderRadius = '50%';
+        ripple.style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
+        ripple.style.transform = 'scale(0)';
+        ripple.style.animation = 'ripple 0.6s linear';
+        
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size/2;
+        const y = e.clientY - rect.top - size/2;
+        
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        
+        this.style.position = 'relative';
+        this.style.overflow = 'hidden';
+        this.appendChild(ripple);
+        
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      });
+    });
+
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes ripple {
+        to {
+          transform: scale(2.5);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+  </nav>

@@ -1,0 +1,50 @@
+<div class="container">
+  <h2 class="page-title">Educational Levels & Subjects</h2>
+  
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading levels and subjects...</p>
+  </div>
+  
+  <div *ngIf="errorMessage && !isLoading" class="error-container">
+    <div class="error-icon">⚠️</div>
+    <p>{{ errorMessage }}</p>
+    <button class="retry-btn" (click)="loadLevelsWithSubjects()">Try Again</button>
+  </div>
+  
+  <div *ngIf="!isLoading && !errorMessage">
+
+    <div *ngIf="levels.length === 0" class="empty-state">
+      <h3>No levels available</h3>
+      <p>There are currently no educational levels to display.</p>
+    </div>
+    
+
+    <div *ngFor="let level of levels" class="level-card">
+      <div class="level-header">
+        <h3 class="level-name">{{ level.name_Level }}</h3>
+        <span class="level-type-badge">{{ level.level_Type }}</span>
+      </div>
+      
+      <div class="subjects-container">
+        <h4 *ngIf="safeGetSubjects(level).length > 0" class="subjects-title">Subjects</h4>
+        
+
+        <div *ngIf="safeGetSubjects(level).length === 0" class="no-subjects">
+          <p>No subjects available for this level.</p>
+        </div>
+        
+
+        <div *ngIf="safeGetSubjects(level).length > 0" class="subjects-grid">
+          <div *ngFor="let subject of safeGetSubjects(level)" class="subject-card">
+            <div class="subject-content">
+              <h5 class="subject-name">{{ subject.name_Subject }}</h5>
+              <p class="topics-count">{{ safeGetTopicsCount(subject) }} topics</p>
+            </div>
+            <button class="view-btn" [routerLink]="['/subjects', subject.idSubject]">View Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

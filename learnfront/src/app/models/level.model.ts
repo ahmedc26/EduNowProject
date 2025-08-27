@@ -1,3 +1,4 @@
+import { Subject } from "./subject.model";
 export enum LevelType {
     PRIMARY = 'PRIMARY',
     SECONDARY = 'SECONDARY'
@@ -5,8 +6,9 @@ export enum LevelType {
 
 
 export interface Level {
-    idLevel?: number;
+    idLevel?: number ;
     name_Level: string;
     level_Type: LevelType;
+    subjects?: Subject[]; 
 
 }

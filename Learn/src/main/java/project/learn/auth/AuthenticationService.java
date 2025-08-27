@@ -102,6 +102,7 @@ public class  AuthenticationService {
     claims.put("fullName", user.fullName());
     claims.put("iduser", user.getIdUser());
     claims.put("phoneNumber", user.getPhoneNumber());
+
     claims.put("createdDate", Date.from(user.getCreatedDate().atZone(ZoneId.systemDefault()).toInstant()));
 
     var jwtToken = jwtService.generateToken(claims,user);

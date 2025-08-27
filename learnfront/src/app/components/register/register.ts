@@ -81,7 +81,7 @@ toggleForm() {
             console.log("mrigl");
           }
           else
-          this.router.navigate(['/Student-home']);
+          this.router.navigate(['/user-home']);
             console.log("STUDENT");
         },
         error: (error) => {
