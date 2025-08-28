@@ -1,0 +1,78 @@
+<app-side-bar>
+<div class="upload-container">
+  <h2>Upload New Topic</h2>
+  
+  <div *ngIf="message" [class]="'alert ' + (messageType === 'success' ? 'alert-success' : 'alert-danger')">
+    {{ message }}
+  </div>
+
+  <form [formGroup]="topicForm" (ngSubmit)="onSubmit()" class="topic-form">
+
+    <div class="form-group">
+      <label for="name_Topic">Topic Name *</label>
+      <input
+        type="text"
+        id="name_Topic"
+        formControlName="name_Topic"
+        class="form-control"
+        placeholder="Enter topic name"
+      >
+      <div *ngIf="topicForm.get('name_Topic')?.invalid && topicForm.get('name_Topic')?.touched" class="error-message">
+        <span *ngIf="topicForm.get('name_Topic')?.errors?.['required']">Topic name is required</span>
+        <span *ngIf="topicForm.get('name_Topic')?.errors?.['minlength']">Minimum 3 characters required</span>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="subjectId">Subject *</label>
+      <select
+        id="subjectId"
+        formControlName="subjectId"
+        class="form-control">
+      
+       <option value="">Select a subject</option>
+<ng-container *ngFor="let level of levels">
+  <optgroup label="{{level.name_Level}} {{ level.level_Type }}">
+    <option *ngFor="let subject of getSubjectsByLevel(level.idLevel)" [value]="subject.id_subject">
+      {{subject.name_Subject}}
+    </option>
+  </optgroup>
+</ng-container>
+      </select>
+      <div *ngIf="topicForm.get('subject.idSubject')?.invalid && topicForm.get('subject.idSubject')?.touched" class="error-message">
+        Subject selection is required
+      </div>
+    </div>
+
+    <!-- File Upload -->
+    <div class="form-group">
+      <label for="fileInput">Upload File (Optional)</label>
+      <input
+        type="file"
+        id="fileInput"
+        (change)="onFileSelected($event)"
+        class="form-control-file"
+        accept=".pdf,.doc,.docx,.txt,.ppt,.pptx"
+      >
+      <small class="form-text text-muted">
+        Supported formats: PDF, DOC, DOCX, TXT, PPT, PPTX
+      </small>
+      <div *ngIf="selectedFile" class="file-info">
+        Selected file: {{ selectedFile.name }} 
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="isLoading || topicForm.invalid"
+    >
+      <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status"></span>
+      {{ isLoading ? 'Uploading...' : 'Upload Topic' }}
+    </button>
+
+  </form>
+</div>
+</app-side-bar>

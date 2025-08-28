@@ -21,19 +21,24 @@ export class UserLevels implements OnInit  {
   }
 
   loadLevelsWithSubjects(): void {
-    this.isLoading = true;
-    this.levelService.getLevels().subscribe({
-      next: (levels: Level[]) => {
-        this.levels = levels;
-        this.isLoading = false;
-      },
-      error: (error) => {
-        this.errorMessage = 'Failed to load levels. Please try again later.';
-        this.isLoading = false;
-        console.error('Error loading levels:', error);
-      }
-    });
-  }
+  this.isLoading = true;
+  this.levelService.getLevels().subscribe({
+    next: (levels: Level[]) => {
+      this.levels = levels.sort((a, b) => {
+        if (a.level_Type === b.level_Type) {
+          return a.name_Level.localeCompare(b.name_Level);
+        }
+        return a.level_Type === 'PRIMARY' ? -1 : 1;
+      });
+      this.isLoading = false;
+    },
+    error: (error) => {
+      this.errorMessage = 'Failed to load levels. Please try again later.';
+      this.isLoading = false;
+      console.error('Error loading levels:', error);
+    }
+  });
+}
 
   getSubjectsForLevel(levelId: number): Subject[] {
     const level = this.levels.find(l => l.idLevel === levelId);

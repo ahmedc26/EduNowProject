@@ -26,7 +26,9 @@ constructor( private http: HttpClient ){}
   getSubjects():Observable<any[]>{
     return this.http.get<any[]>(`${this.apiUrl}/getallSubjects`)
   }
-
+  getAllTopics():Observable<any[]>{
+    return this.http.get<any[]>(`${this.apiUrl}/getAllTopics`)
+  }
   addSubject(subject: Subject,idLevel:number): Observable<EduLevel> {
     return this.http.post<EduLevel>(`${this.apiUrl}/assignSubjectToLevel/${idLevel}`, subject);
   }
@@ -48,6 +50,8 @@ constructor( private http: HttpClient ){}
       level: 'delete-Level',
       Subject: 'Delete-Subject'};
       return this.http.delete<void>(`${this.apiUrl}/${endpointMap[entityType]}/${id}`);
-
     }
+
+    
+
 }

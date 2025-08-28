@@ -1,0 +1,64 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="container">
+
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading topics...</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-container">
+    <div class="error-alert">
+      <i class="fas fa-exclamation-circle"></i>
+      {{ errorMessage }}
+      <button (click)="loadAllTopics()" class="retry-btn">
+        <i class="fas fa-redo"></i> Retry
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && topics.length > 0" class="levels-grid">
+    <div *ngFor="let topic of topics" class="topic-card">
+      <div class="topic-header">
+        <div class="file-icon">
+          <i class="fas {{ getFileIcon(topic) }}"></i>
+        </div>
+        <div class="topic-info">
+          <h3 class="topic-name">{{ topic.name_Topic }}</h3>
+          <span class="topic-subject">{{ topic.subject?.name_Subject }}</span>
+        </div>
+        <span class="file-type-badge">{{ getFileTypeDisplay(topic) }}</span>
+      </div>
+      
+      <div class="topic-content">
+        <p class="file-name">
+          <i class="fas fa-file"></i>
+          {{ topic.fileName || 'No file attached' }}
+        </p>
+        
+        <div class="topic-actions" *ngIf="topic.filePath">
+     
+          
+          <button 
+            (click)="downloadFile(topic)" 
+            class="action-btn download-btn"
+            title="Download File"
+          >
+            <i class="fas fa-download"></i> Download
+          </button>
+        </div>
+        
+        <div *ngIf="!topic.filePath" class="no-file-message">
+          <i class="fas fa-exclamation-triangle"></i>
+          No file available for this topic
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && topics.length === 0 && !errorMessage" class="empty-state">
+    <i class="fas fa-folder-open"></i>
+    <h3>No Topics Available</h3>
+    <p>There are no topics to display at the moment.</p>
+  </div>
+</div>

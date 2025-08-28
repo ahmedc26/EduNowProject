@@ -2,8 +2,8 @@ import { Level } from "./level.model";
 
 
 export interface Subject {
-    idSubject?: number;
+    id_subject?: number;
     name_Subject: string;
-     level?: { idLevel: number };
+    level?: Level;
     topics?: any[];
 }

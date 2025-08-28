@@ -14,6 +14,8 @@ import { NavBar } from './components/nav-bar/nav-bar';
 import { Courses } from './components/courses/courses';
 import { UserProfile } from './components/user-profile/user-profile';
 import { UserLevels } from './components/user-levels/user-levels';
+import { AdminTopics } from './components/admin-topics/admin-topics';
+import { UserTopic } from './components/user-topic/user-topic';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -29,7 +31,9 @@ const routes: Routes = [
   { path: 'nav-bar', component: NavBar, canActivate:[AuthGuardService]},
   { path: 'courses', component: Courses, canActivate:[AuthGuardService]},
   { path: 'user-profile',component:UserProfile, canActivate:[AuthGuardService]},
-  { path: 'user-levels',component:UserLevels, canActivate:[AuthGuardService]}
+  { path: 'user-levels',component:UserLevels, canActivate:[AuthGuardService]},
+  { path: 'admin-topics',component:AdminTopics, canActivate:[AuthGuardService]},
+  { path: 'user-topic', component:UserTopic, canActivate:[AuthGuardService]}
 ];
 
 @NgModule({

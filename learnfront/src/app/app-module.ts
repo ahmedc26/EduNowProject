@@ -33,6 +33,8 @@ import { NavBar } from './components/nav-bar/nav-bar';
 import { Courses } from './components/courses/courses';
 import { UserProfile } from './components/user-profile/user-profile';
 import { UserLevels } from './components/user-levels/user-levels';
+import { AdminTopics } from './components/admin-topics/admin-topics';
+import { UserTopic } from './components/user-topic/user-topic';
 
 
 
@@ -52,7 +54,9 @@ import { UserLevels } from './components/user-levels/user-levels';
     NavBar,
     Courses,
     UserProfile,
-    UserLevels
+    UserLevels,
+    AdminTopics,
+    UserTopic
 
     
   ],

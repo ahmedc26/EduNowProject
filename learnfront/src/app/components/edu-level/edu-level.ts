@@ -65,7 +65,7 @@ constructor( private router:Router, private levelService :LevelService, private 
         this.applyFilter(searchTerm || '', 'Levels');
       });
     
-    // Setup search for Subjects
+
     this.subjectsSearchControl.valueChanges
       .pipe(
         debounceTime(300),

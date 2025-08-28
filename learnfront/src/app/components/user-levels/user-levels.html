@@ -1,50 +1,51 @@
-<div class="container">
-  <h2 class="page-title">Educational Levels & Subjects</h2>
-  
-  <div *ngIf="isLoading" class="loading-container">
-    <div class="spinner"></div>
-    <p>Loading levels and subjects...</p>
-  </div>
-  
-  <div *ngIf="errorMessage && !isLoading" class="error-container">
-    <div class="error-icon">⚠️</div>
-    <p>{{ errorMessage }}</p>
-    <button class="retry-btn" (click)="loadLevelsWithSubjects()">Try Again</button>
-  </div>
-  
-  <div *ngIf="!isLoading && !errorMessage">
+<app-nav-bar></app-nav-bar>
 
-    <div *ngIf="levels.length === 0" class="empty-state">
-      <h3>No levels available</h3>
-      <p>There are currently no educational levels to display.</p>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Levels</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
     
-
-    <div *ngFor="let level of levels" class="level-card">
-      <div class="level-header">
-        <h3 class="level-name">{{ level.name_Level }}</h3>
-        <span class="level-type-badge">{{ level.level_Type }}</span>
-      </div>
-      
-      <div class="subjects-container">
-        <h4 *ngIf="safeGetSubjects(level).length > 0" class="subjects-title">Subjects</h4>
+    <div class="container">
+        <h2 class="page-title">Educational Levels</h2>
         
+        <p class="page-description">
+            Explore our comprehensive curriculum organized by educational levels. 
+            Each level contains subjects tailored to provide the best learning experience.
+        </p>
 
-        <div *ngIf="safeGetSubjects(level).length === 0" class="no-subjects">
-          <p>No subjects available for this level.</p>
-        </div>
-        
+        <div class="levels-grid">
 
-        <div *ngIf="safeGetSubjects(level).length > 0" class="subjects-grid">
-          <div *ngFor="let subject of safeGetSubjects(level)" class="subject-card">
-            <div class="subject-content">
-              <h5 class="subject-name">{{ subject.name_Subject }}</h5>
-              <p class="topics-count">{{ safeGetTopicsCount(subject) }} topics</p>
+            <div *ngFor="let level of levels" class="level-card">
+                <div class="level-header">
+                    <h3 class="level-name">{{level.name_Level}}</h3>
+                    <span class="level-type-badge">{{level.level_Type}}</span>
+                </div>
+                
             </div>
-            <button class="view-btn" [routerLink]="['/subjects', subject.idSubject]">View Details</button>
-          </div>
+            
         </div>
-      </div>
     </div>
-  </div>
-</div>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const levelCards = document.querySelectorAll('.level-card');
+            
+            levelCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (!e.target.classList.contains('view-all-btn')) {
+                        this.classList.toggle('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,1 +1,59 @@
+<app-nav-bar></app-nav-bar>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Levels</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
 
+    
+    <div class="container">
+        <h2 class="page-title">Our Courses</h2>
+        
+        <p class="page-description">
+            Explore our comprehensive curriculum organized by educational Courses. 
+        </p>
+        
+        <div class="levels-grid">
+            <div *ngFor="let level of levels" class="level-card">
+                <div class="level-header">
+                    <h3 class="level-name">{{level.name_Level}}</h3>
+                    <span class="level-type-badge">{{level.level_Type}}</span>
+                </div>
+                <h4 class="subjects-title"><i class="fas fa-book-open"></i> Subjects</h4>
+                <div class="level-content">
+                    
+                    <div *ngFor="let subject of safeGetSubjects(level)" class="subjects-list">
+                        <div class="subject-item">
+                            <span class="subject-name">{{subject.name_Subject}}</span>
+                            <span class="topics-count">12 topics</span>
+                        </div>
+                        
+                    </div>
+                    </div>
+                    <a href="#" class="view-all-btn">View All Subjects</a>
+                    
+                
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const levelCards = document.querySelectorAll('.level-card');
+            
+            levelCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (!e.target.classList.contains('view-all-btn')) {
+                        this.classList.toggle('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
