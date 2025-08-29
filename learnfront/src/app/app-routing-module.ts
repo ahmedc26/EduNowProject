@@ -16,6 +16,7 @@ import { UserProfile } from './components/user-profile/user-profile';
 import { UserLevels } from './components/user-levels/user-levels';
 import { AdminTopics } from './components/admin-topics/admin-topics';
 import { UserTopic } from './components/user-topic/user-topic';
+import { TopicsLevel } from './components/topics-level/topics-level';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -33,7 +34,8 @@ const routes: Routes = [
   { path: 'user-profile',component:UserProfile, canActivate:[AuthGuardService]},
   { path: 'user-levels',component:UserLevels, canActivate:[AuthGuardService]},
   { path: 'admin-topics',component:AdminTopics, canActivate:[AuthGuardService]},
-  { path: 'user-topic', component:UserTopic, canActivate:[AuthGuardService]}
+  { path: 'user-topic', component:UserTopic, canActivate:[AuthGuardService]},
+  { path: 'topic-level', component:TopicsLevel,canActivate:[AuthGuardService]}
 ];
 
 @NgModule({

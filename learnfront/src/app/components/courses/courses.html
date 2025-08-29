@@ -30,12 +30,19 @@
                     <div *ngFor="let subject of safeGetSubjects(level)" class="subjects-list">
                         <div class="subject-item">
                             <span class="subject-name">{{subject.name_Subject}}</span>
-                            <span class="topics-count">12 topics</span>
+                            <span class="topics-count">
+      <span *ngIf="isLoadingCount(subject.id_subject)" class="loading-spinner">
+        <i class="fas fa-spinner fa-spin"></i>
+      </span>
+      <span *ngIf="!isLoadingCount(subject.id_subject)">
+        {{getTopicCount(subject.id_subject)}} topic(s)
+      </span>
+    </span>
                         </div>
                         
                     </div>
                     </div>
-                    <a href="#" class="view-all-btn">View All Subjects</a>
+                    <a href="/courses" class="view-all-btn">View All Subjects</a>
                     
                 
             </div>

@@ -25,6 +25,7 @@
         </div>
         <div class="topic-info">
           <h3 class="topic-name">{{ topic.name_Topic }}</h3>
+          <h3 class="topic-name">{{ topic.subject?.level?.name_Level }} - {{topic.subject?.level?.level_Type}}</h3>
           <span class="topic-subject">{{ topic.subject?.name_Subject }}</span>
         </div>
         <span class="file-type-badge">{{ getFileTypeDisplay(topic) }}</span>

@@ -71,4 +71,8 @@ public class TopicService {
         return topicRepo.save(topic);
     }
 
+    public List<Topic> getTopicsByLevel(long idLevel) {
+        return topicRepo.findBySubjectLevelIdLevel(idLevel);
+    }
+
 }

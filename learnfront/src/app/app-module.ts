@@ -35,6 +35,7 @@ import { UserProfile } from './components/user-profile/user-profile';
 import { UserLevels } from './components/user-levels/user-levels';
 import { AdminTopics } from './components/admin-topics/admin-topics';
 import { UserTopic } from './components/user-topic/user-topic';
+import { TopicsLevel } from './components/topics-level/topics-level';
 
 
 
@@ -56,7 +57,8 @@ import { UserTopic } from './components/user-topic/user-topic';
     UserProfile,
     UserLevels,
     AdminTopics,
-    UserTopic
+    UserTopic,
+    TopicsLevel
 
     
   ],

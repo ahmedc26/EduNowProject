@@ -15,6 +15,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 export class UserTopic {
 
  topics : Topic[]= [];
+ subjects: Subject[]= [];
  loading = false;
  errorMessage = '';
 
@@ -25,6 +26,7 @@ export class UserTopic {
 
   ngOnInit(){
     this.loadAllTopics();
+    
   }
 
   loadAllTopics() {

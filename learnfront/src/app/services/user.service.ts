@@ -22,6 +22,8 @@ export class UserService {
 
   }
 
+ 
+
   deleteUser(iduser:number):Observable<void>{
   return this.http.delete<void>(`${this.apiUrl}/delete/${iduser}`);
   }

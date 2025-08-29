@@ -1,0 +1,29 @@
+<!--<div *ngFor="let level of levels" class="level-card">
+  <div class="level-header">
+    <h3 class="level-name">{{level.name_Level}}</h3>
+    <span class="level-type-badge">{{level.level_Type}}</span>
+  </div>
+  
+  <h4 class="subjects-title"><i class="fas fa-book-open"></i> Subjects</h4>
+  <div class="level-content">
+    <div *ngFor="let subject of safeGetSubjects(level)" class="subjects-list">
+      <div class="subject-item">
+        <span class="subject-name">{{subject.name_Subject}}</span>
+        <span class="topics-count">{{getTopicCount(subject.id_subject)}} topic(s)</span>
+      </div>
+    </div>
+  </div>
+
+  Display topics for this level 
+  <div *ngIf="getTopicsForLevel(level.idLevel).length > 0" class="topics-section">
+    <h4 class="topics-title"><i class="fas fa-list"></i> Topics</h4>
+    <div class="topics-list">
+      <div *ngFor="let topic of getTopicsForLevel(level.idLevel)" class="topic-item">
+        {{topic.name_Topic}}
+      </div>
+    </div>
+  </div>
+
+  <a href="#" class="view-all-btn">View All Subjects</a>
+</div>
+-->

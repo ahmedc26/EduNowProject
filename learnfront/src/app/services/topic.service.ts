@@ -13,8 +13,6 @@ addTopicWithFile(topic: Topic, file: File): Observable<any> {
     const formData = new FormData();
     
     formData.append('topic', JSON.stringify(topic));
-    
-    // Add file if provided
     if (file) {
       formData.append('file', file, file.name);
     }
@@ -47,6 +45,14 @@ downloadFile(filePath: string): Observable<Blob> {
     return this.http.get(`${this.apiUrl}/view/${filePath}`, {
       responseType: 'blob'
     });
+  }
+
+   getTopicsCount(idSubject:number):Observable<number>{
+    return this.http.get<number>(`${this.apiUrl}/count-topics/${idSubject}`)
+  }
+
+  getTopicsByLevel(idLevel:number):Observable<Topic[]>{
+    return this.http.get<Topic[]>(`${this.apiUrl}/getTopics/${idLevel}`)
   }
 
 }
