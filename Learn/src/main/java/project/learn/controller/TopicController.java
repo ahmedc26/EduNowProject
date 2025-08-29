@@ -44,9 +44,12 @@ public class TopicController {
             @RequestParam(value = "file", required = false) MultipartFile file) {
 
         try {
+            
             System.out.println("Received JSON: " + topicJson);
 
             Topic topic = objectMapper.readValue(topicJson, Topic.class);
+
+
 
             System.out.println("Topic name: " + topic.getName_Topic());
             System.out.println("Subject: " + topic.getSubject());
@@ -84,7 +87,6 @@ public class TopicController {
 
             Resource resource = fileStorageService.loadFileAsResource(filename);
 
-            // Determine content type
             String contentType = "application/octet-stream";
 
             return ResponseEntity.ok()
@@ -102,7 +104,6 @@ public class TopicController {
         try {
             Resource resource = fileStorageService.loadFileAsResource(filename);
 
-            // Determine content type dynamically
             String contentType = getContentType(filename);
 
             return ResponseEntity.ok()
