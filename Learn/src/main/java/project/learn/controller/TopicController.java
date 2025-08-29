@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import project.learn.Entity.Subject;
 import project.learn.Entity.Topic;
-import project.learn.Repository.TopicRepo;
 import project.learn.Service.FileStorageService;
 import project.learn.Service.TopicService;
 import org.springframework.core.io.Resource;
@@ -30,8 +29,6 @@ public class TopicController {
 
     private final FileStorageService fileStorageService;
 
-    private final TopicRepo topicRepo;
-
 
 
     @PostMapping("/add-topic")
@@ -44,13 +41,11 @@ public class TopicController {
             @RequestParam(value = "file", required = false) MultipartFile file) {
 
         try {
-            
-            System.out.println("Received JSON: " + topicJson);
+            System.out.println("Received JSON: " + topicJson); 
 
             Topic topic = objectMapper.readValue(topicJson, Topic.class);
 
-
-
+           
             System.out.println("Topic name: " + topic.getName_Topic());
             System.out.println("Subject: " + topic.getSubject());
             if (topic.getSubject() != null) {
@@ -68,8 +63,6 @@ public class TopicController {
     public List<Topic> getAllTopics() {
         return topicService.findAllTopics();
     }
-
-
 
     @DeleteMapping("/Delete-topic")
     public void deleteTopic(@RequestBody Topic topic) {
@@ -130,17 +123,6 @@ public class TopicController {
         }
         return "application/octet-stream";
     }
-
-    @GetMapping("/count-topics/{idSubject}")
-    public Long countTopics(@PathVariable Long idSubject) {
-        return topicRepo.countBySubjectIdSubject(idSubject);
-    }
-
-    @GetMapping("/getTopics/{idLevel}")
-    public List<Topic> getTopics(@PathVariable Long idLevel) {
-        return topicService.getTopicsByLevel(idLevel);
-    }
-
 }
 
 
