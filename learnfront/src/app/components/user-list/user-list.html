@@ -25,7 +25,8 @@
                 <th>Phone</th>
                 <th>Enabled</th>
                 <th>joined Date</th>
-                <th>Actions</th>
+                <th>Delete</th>
+                <th>Update</th>
             </tr>
         </thead>
         <tbody>
@@ -36,14 +37,19 @@
                 <td>{{ user.email }}</td>
                 <td>{{ user.birthDate }}</td>
                 <td>{{ user.phoneNumber }}</td>
-                <td>{{ user.enabled }}</td>
+                <td class="mat-ic">
+                  <mat-icon [class.enabled-true]="user.enabled" [class.enabled-false]="!user.enabled">
+                    {{ user.enabled ? 'check_circle' : 'cancel' }}
+                  </mat-icon>
+                </td>
                 <td>{{ user.createdDate | date:'short'}}</td>
                 <td>
-                    <button mat-icon-button color="warn" (click)="deleteUser(user.idUser)">
-                        <mat-icon>delete</mat-icon>
+                    <button mat-icon-button class="khyel"  color="warn" (click)="deleteUser(user.idUser)">
+                        <mat-icon class="delete-mat">delete</mat-icon>
                     </button>
-                    <button class="update-button" (click)="updateUser(user.idUser)">Update</button>
+                    
                 </td>
+                <td><button class="update-button" (click)="updateUser(user.idUser)">Update</button></td>
             </tr>
         </tbody>
     </table>

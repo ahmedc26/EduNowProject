@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import project.learn.Entity.Subject;
 import project.learn.Entity.Topic;
+import project.learn.Repository.TopicRepo;
 import project.learn.Service.FileStorageService;
 import project.learn.Service.TopicService;
 import org.springframework.core.io.Resource;
@@ -24,6 +25,8 @@ public class TopicController {
 
     @Autowired
     private TopicService topicService;
+
+    private final TopicRepo topicRepo;
 
     private final ObjectMapper objectMapper;
 
@@ -62,6 +65,16 @@ public class TopicController {
     @GetMapping("/getAllTopics")
     public List<Topic> getAllTopics() {
         return topicService.findAllTopics();
+    }
+
+        @GetMapping("getTopics/{idLevel}")
+        public List<Topic> getTopicsByLevel(@PathVariable Long idLevel) {
+            return topicRepo.findBySubjectLevelIdLevel(idLevel);
+        }
+
+    @GetMapping("/count-topics/{idSubject}")
+    public Long countTopics(@PathVariable Long idSubject) {
+        return topicRepo.countBySubjectIdSubject(idSubject);
     }
 
     @DeleteMapping("/Delete-topic")

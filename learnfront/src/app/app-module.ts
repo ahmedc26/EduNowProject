@@ -36,6 +36,7 @@ import { UserLevels } from './components/user-levels/user-levels';
 import { AdminTopics } from './components/admin-topics/admin-topics';
 import { UserTopic } from './components/user-topic/user-topic';
 import { TopicsLevel } from './components/topics-level/topics-level';
+import { AccessDenied } from './components/access-denied/access-denied';
 
 
 
@@ -58,7 +59,8 @@ import { TopicsLevel } from './components/topics-level/topics-level';
     UserLevels,
     AdminTopics,
     UserTopic,
-    TopicsLevel
+    TopicsLevel,
+    AccessDenied
 
     
   ],

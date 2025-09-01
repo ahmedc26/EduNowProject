@@ -17,25 +17,32 @@ import { UserLevels } from './components/user-levels/user-levels';
 import { AdminTopics } from './components/admin-topics/admin-topics';
 import { UserTopic } from './components/user-topic/user-topic';
 import { TopicsLevel } from './components/topics-level/topics-level';
+import { StudentAuthGuardService } from './services/student-auth-guard.service';
+import { AccessDenied } from './components/access-denied/access-denied';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: Home },
   { path: 'register', component:Register},
   { path: 'Admin-home', component:AdminHome,canActivate:[AuthGuardService]},
-  { path: 'Student-home', component:StudentHome},
   { path: 'Admin-profile', component:AdminProfile,canActivate:[AuthGuardService]},
   { path: 'user-list', component:UserList, canActivate:[AuthGuardService]},
   { path: 'update-user/:idUser', component: UserUpdate, canActivate:[AuthGuardService]},
   { path: 'level', component: EduLevel, canActivate:[AuthGuardService]},
-  { path: 'user-home', component: UserHome, canActivate:[AuthGuardService]},
-  { path: 'nav-bar', component: NavBar, canActivate:[AuthGuardService]},
-  { path: 'courses', component: Courses, canActivate:[AuthGuardService]},
-  { path: 'user-profile',component:UserProfile, canActivate:[AuthGuardService]},
-  { path: 'user-levels',component:UserLevels, canActivate:[AuthGuardService]},
+  
+  { path: 'nav-bar', component: NavBar},
+  
+
   { path: 'admin-topics',component:AdminTopics, canActivate:[AuthGuardService]},
-  { path: 'user-topic', component:UserTopic, canActivate:[AuthGuardService]},
-  { path: 'topic-level', component:TopicsLevel,canActivate:[AuthGuardService]}
+  { path: 'Student-home', component:StudentHome},
+  { path: 'level/:idLevel/topics', component: TopicsLevel },
+  { path: 'user-home', component: UserHome, canActivate:[StudentAuthGuardService]},
+  { path: 'courses', component: Courses, canActivate:[StudentAuthGuardService]},
+  { path: 'user-profile',component:UserProfile, canActivate:[StudentAuthGuardService]},
+  { path: 'user-levels',component:UserLevels, canActivate:[StudentAuthGuardService]},
+  { path: 'user-topic', component:UserTopic, canActivate:[StudentAuthGuardService]},
+
+  { path: 'access-denied', component: AccessDenied },
 ];
 
 @NgModule({

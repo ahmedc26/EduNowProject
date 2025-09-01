@@ -86,11 +86,29 @@
   width: 80px;
   text-align: center;
 }
-
+.khyel{
+  margin-right: 0px;
+}
 .delete-btn:hover {
-  background-color: rgba(244, 67, 54, 0.1);
+  background-color: rgb(252, 17, 0);
+}
+.mat-icon-button{
+  background-color: red;
 }
 
 .list-user:hover{
   background-color: rgb(232, 232, 232);
+}
+.enabled-true {
+  color: #4CAF50; /* Green color for enabled */
+}
+
+.enabled-false {
+  color: #F44336; /* Red color for disabled */
+}
+
+
+.delete-mat {
+  vertical-align: middle;
+  margin: 0px 10px 10px 0px;
 }

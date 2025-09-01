@@ -1,29 +1,88 @@
-<!--<div *ngFor="let level of levels" class="level-card">
-  <div class="level-header">
-    <h3 class="level-name">{{level.name_Level}}</h3>
-    <span class="level-type-badge">{{level.level_Type}}</span>
+<app-nav-bar></app-nav-bar>
+
+<div class="container">
+
+  <nav class="breadcrumb">
+    <a routerLink="/courses">Courses</a>
+    <span class="separator">/</span>
+    <span>{{ level?.name_Level }} {{level.level_Type}} Topics</span>
+  </nav>
+
+  <div class="page-header">
+    <h1 class="page-title">
+      <i class="fas fa-graduation-cap"></i>
+      {{ level?.name_Level }} - {{ level?.level_Type }}
+    </h1>
+    <p class="page-description">
+      Explore all topics available for this level
+    </p>
   </div>
-  
-  <h4 class="subjects-title"><i class="fas fa-book-open"></i> Subjects</h4>
-  <div class="level-content">
-    <div *ngFor="let subject of safeGetSubjects(level)" class="subjects-list">
-      <div class="subject-item">
-        <span class="subject-name">{{subject.name_Subject}}</span>
-        <span class="topics-count">{{getTopicCount(subject.id_subject)}} topic(s)</span>
+
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading topics...</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-container">
+    <div class="error-alert">
+      <i class="fas fa-exclamation-circle"></i>
+      {{ errorMessage }}
+      <button (click)="loadTopicsByLevel()" class="retry-btn">
+        <i class="fas fa-redo"></i> Retry
+      </button>
+    </div>
+  </div>
+
+
+  <div *ngIf="!isLoading && topics.length > 0" class="topics-container">
+    <div class="topics-header">
+      <h2>Available Topics ({{ topics.length }})</h2>
+    </div>
+
+    <div class="topics-grid">
+      <div *ngFor="let topic of topics" class="topic-card">
+        <div class="topic-header">
+          <div class="file-icon">
+            <i class="fas {{ getFileIcon(topic) }}"></i>
+          </div>
+          <div class="topic-info">
+            <h3 class="topic-name">{{ topic.name_Topic }}</h3>
+            <span class="topic-subject">Subject: {{ topic.subject?.name_Subject }}</span>
+          </div>
+          <span class="file-type-badge">{{ getFileTypeDisplay(topic) }}</span>
+        </div>
+        
+        <div class="topic-content">
+          <p class="file-name" *ngIf="topic.fileName">
+            <i class="fas fa-file"></i>
+            {{ topic.fileName }}
+          </p>
+          
+          <div class="topic-actions" *ngIf="topic.filePath">
+            <button 
+              (click)="downloadFile(topic)" 
+              class="action-btn download-btn"
+              title="Download File"
+            >
+              <i class="fas fa-download"></i> Download
+            </button>
+          </div>
+          
+          <div *ngIf="!topic.filePath" class="no-file-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            No file available
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  Display topics for this level 
-  <div *ngIf="getTopicsForLevel(level.idLevel).length > 0" class="topics-section">
-    <h4 class="topics-title"><i class="fas fa-list"></i> Topics</h4>
-    <div class="topics-list">
-      <div *ngFor="let topic of getTopicsForLevel(level.idLevel)" class="topic-item">
-        {{topic.name_Topic}}
-      </div>
-    </div>
+  <div *ngIf="!isLoading && topics.length === 0 && !errorMessage" class="empty-state">
+    <i class="fas fa-folder-open"></i>
+    <h3>No Topics Available</h3>
+    <p>There are no topics available for this level yet.</p>
+    <a routerLink="/courses" class="back-btn">
+      <i class="fas fa-arrow-left"></i> Back to Courses
+    </a>
   </div>
-
-  <a href="#" class="view-all-btn">View All Subjects</a>
 </div>
--->

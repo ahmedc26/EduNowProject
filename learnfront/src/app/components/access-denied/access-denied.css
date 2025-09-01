@@ -1,0 +1,14 @@
+.access-denied-container {
+      text-align: center;
+      padding: 2rem;
+      margin-top: 5rem;
+    }
+    h1 { color: #dc3545; }
+    button {
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }

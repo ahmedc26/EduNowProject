@@ -35,7 +35,7 @@ public class UsersController {
         return usersService.updateUser(user);
     }
 
-    @GetMapping("/view/{iduser}")
+    @GetMapping("/view-user/{iduser}")
     public User getUser(@PathVariable Long iduser) {
         return usersService.getUser(iduser);
     }

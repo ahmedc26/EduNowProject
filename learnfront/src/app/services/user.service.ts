@@ -40,7 +40,7 @@ export class UserService {
 
 
   getUserById(iduser: number) {
-    return this.http.get<User>(`${this.apiUrl}/view/${iduser}`);
+    return this.http.get<User>(`${this.apiUrl}/view-user/${iduser}`);
   }
 
   }
