@@ -10,4 +10,5 @@ import java.util.List;
 public interface TopicRepo extends JpaRepository<Topic,Long> {
     Long countBySubjectIdSubject(Long idSubject);
     List<Topic> findBySubjectLevelIdLevel(Long idLevel);
+    List<Topic> findBySubjectIdSubjectAndSubjectLevelIdLevel(Long idSubject, Long idLevel);
 }

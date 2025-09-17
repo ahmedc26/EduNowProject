@@ -76,6 +76,8 @@ export class Courses {
     const level = this.levels.find(l => l.idLevel === levelId);
     return level && level.subjects ? level.subjects : [];
   }
+
+  
   safeGetSubjects(level: Level): Subject[] {
     return level.subjects || [];
   }

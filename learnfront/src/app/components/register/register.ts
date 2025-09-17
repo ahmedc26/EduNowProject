@@ -126,9 +126,4 @@ onSubmit() {
     console.log('Form is invalid', this.signUpForm.errors, this.signUpForm.value);
   }
 }
-
-
-
-
-
 }

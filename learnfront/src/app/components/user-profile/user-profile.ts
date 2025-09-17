@@ -1,19 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
-import { inject, OnInit, Renderer2 } from '@angular/core';
+import { inject, Renderer2 } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 @Component({
   selector: 'app-user-profile',
   standalone: false,
   templateUrl: './user-profile.html',
-  styleUrl: './user-profile.css'
+  styleUrls: ['./user-profile.css']
 })
-export class UserProfile {
- constructor(private router: Router, private userService : UserService) {
-    this.getUserNameFromToken();
-  }
+export class UserProfile implements OnInit {
+ constructor(private router: Router, private userService : UserService) {}
   currentUser: User | null = null;
 userName: string = '';
 
@@ -26,8 +24,11 @@ userName: string = '';
     this.router.navigate(['/']);
   }
 
-  
-private getUserNameFromToken() {
+ ngOnInit(): void {
+    this.readUserFromTokenOrFetch();
+ }
+
+private readUserFromTokenOrFetch() {
     const token = localStorage.getItem('token');
     if (token) {
       try {
@@ -44,7 +45,7 @@ const nameParts = decodedToken.fullName?.split(' ') || [];
         lastName: lastName,
         email: decodedToken.sub,
         phoneNumber: decodedToken.phoneNumber,
-        createdDate: new Date (decodedToken.createdDate),
+        createdDate: decodedToken.createdDate ? new Date(decodedToken.createdDate) : undefined as any,
           password: '',
           birthDate: new Date
         
@@ -53,11 +54,34 @@ const nameParts = decodedToken.fullName?.split(' ') || [];
      this.userName= decodedToken.fullName;
       } catch (error) {
         console.error('Error decoding token:', error);
+        this.fetchUserFromApi();
       }
+    } else {
+      this.fetchUserFromApi();
     }
+  }
+
+  private fetchUserFromApi() {
+    // Attempt to extract id from any existing currentUser or skip if not available
+    const token = localStorage.getItem('token');
+    if (!token) { return; }
+    try {
+      const decodedToken: any = jwtDecode(token);
+      const id = decodedToken.iduser;
+      if (id) {
+        this.userService.getUserById(id).subscribe(user => {
+          this.currentUser = user;
+          this.userName = `${user.firstName || ''} ${user.lastName || ''}`.trim();
+        });
+      }
+    } catch {}
   }
 
   updateUser(idUser: number| undefined) {
     this.router.navigate(['update-user', idUser]);
+  }
+
+  changePassword() {
+    this.router.navigate(['change-password']);
   }
 }

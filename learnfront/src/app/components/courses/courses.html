@@ -27,20 +27,22 @@
                 <h4 class="subjects-title"><i class="fas fa-book-open"></i> Subjects</h4>
                 <div class="level-content">
                     
-                    <div *ngFor="let subject of safeGetSubjects(level)" class="subjects-list">
+            <div *ngFor="let subject of safeGetSubjects(level)" class="subjects-list">
+                <a [routerLink]="['/level', level.idLevel, 'subject', subject.id_subject, 'topics']"  class="subject-item-link">
                         <div class="subject-item">
                             <span class="subject-name">{{subject.name_Subject}}</span>
                             <span class="topics-count">
-      <span *ngIf="isLoadingCount(subject.id_subject)" class="loading-spinner">
-        <i class="fas fa-spinner fa-spin"></i>
-      </span>
-      <span *ngIf="!isLoadingCount(subject.id_subject)">
-        {{getTopicCount(subject.id_subject)}} topic(s)
-      </span>
-    </span>
+                <span *ngIf="isLoadingCount(subject.id_subject)" class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+                </span>
+                <span *ngIf="!isLoadingCount(subject.id_subject)">
+                {{getTopicCount(subject.id_subject)}} topic(s)
+                </span>
+                 </span>
                         </div>
-                        
+                    </a>
                     </div>
+                
                     </div>
                     <a  [routerLink]="['/level', level.idLevel, 'topics']" class="view-all-btn">View All Subjects</a>
                     

@@ -2,6 +2,7 @@ package project.learn.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import project.learn.Entity.Subject;
 import project.learn.Entity.Topic;
 import project.learn.Repository.SubjectRepo;
@@ -20,11 +21,24 @@ public class TopicService {
     private SubjectRepo subjectRepo;
     @Autowired
     private FileStorageService fileStorageService;
+    @Autowired
+    private NotificationService notificationService;
 
+    @Transactional
     public Topic saveTopic(Topic topic) {
-        return topicRepo.save(topic);
+        System.out.println("=== TOPIC SERVICE DEBUG ===");
+        System.out.println("Saving topic: " + topic.getName_Topic());
+        Topic savedTopic = topicRepo.save(topic);
+        System.out.println("Topic saved with ID: " + savedTopic.getIdTopic());
+        // Notify students about the new topic
+        System.out.println("Calling notification service...");
+        notificationService.notifyStudentsAboutNewTopic(savedTopic);
+        System.out.println("Notification service called successfully");
+        System.out.println("=== END TOPIC SERVICE DEBUG ===");
+        return savedTopic;
     }
 
+    @Transactional
     public Topic saveTopicWithFile(Topic topic, MultipartFile file) {
         try {
             // Ensure the subject exists and is properly associated
@@ -42,7 +56,15 @@ public class TopicService {
                 topic.setFileType(file.getContentType());
                 topic.setFilePath(storedFilename);
             }
-            return topicRepo.save(topic);
+            Topic savedTopic = topicRepo.save(topic);
+            System.out.println("=== TOPIC SERVICE DEBUG (with file) ===");
+            System.out.println("Topic saved with ID: " + savedTopic.getIdTopic());
+            // Notify students about the new topic
+            System.out.println("Calling notification service...");
+            notificationService.notifyStudentsAboutNewTopic(savedTopic);
+            System.out.println("Notification service called successfully");
+            System.out.println("=== END TOPIC SERVICE DEBUG ===");
+            return savedTopic;
         } catch (Exception e) {
             // Clean up file if saving fails
             if (topic.getFilePath() != null) {

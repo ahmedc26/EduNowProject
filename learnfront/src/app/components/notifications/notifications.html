@@ -1,0 +1,53 @@
+<app-nav-bar></app-nav-bar>
+<div class="notifications-container">
+  <div class="notifications-header">
+    <h3>Notifications</h3>
+    <div class="notification-actions">
+      <span class="unread-count" *ngIf="unreadCount > 0">{{ unreadCount }} unread</span>
+      <button class="btn btn-sm btn-primary" (click)="markAllAsRead()" *ngIf="unreadCount > 0">
+        Mark All Read
+      </button>
+      <button class="btn btn-sm btn-outline-danger" (click)="deleteAllNotifications()" *ngIf="notifications.length > 0">
+        Clear All
+      </button>
+    </div>
+  </div>
+
+  <div class="notifications-list" *ngIf="notifications.length > 0; else noNotifications">
+    <div class="notification-item" 
+         *ngFor="let notification of getDisplayedNotifications()" 
+         [class.unread]="!notification.isRead"
+         (click)="markAsRead(notification)">
+      
+      <div class="notification-content">
+        <div class="notification-header">
+          <h5 class="notification-title">{{ notification.title }}</h5>
+          <span class="notification-time">{{ formatDate(notification.createdDate) }}</span>
+        </div>
+        <p class="notification-message">{{ notification.message }}</p>
+        <div class="notification-meta">
+          <span class="notification-type">{{ notification.type }}</span>
+          <button class="btn btn-sm btn-outline-danger delete-btn" 
+                  (click)="deleteNotification(notification.id); $event.stopPropagation()">
+            Delete
+          </button>
+        </div>
+      </div>
+      
+      <div class="notification-indicator" *ngIf="!notification.isRead"></div>
+    </div>
+
+    <div class="show-more" *ngIf="notifications.length > 5">
+      <button class="btn btn-link" (click)="toggleShowAll()">
+        {{ showAll ? 'Show Less' : 'Show More (' + (notifications.length - 5) + ' more)' }}
+      </button>
+    </div>
+  </div>
+
+  <ng-template #noNotifications>
+    <div class="no-notifications">
+      <p>No notifications yet.</p>
+    </div>
+  </ng-template>
+</div>
+

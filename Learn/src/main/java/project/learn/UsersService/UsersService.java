@@ -2,6 +2,7 @@ package project.learn.UsersService;
 
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.learn.Repository.TokenRepo;
@@ -16,6 +17,9 @@ public class    UsersService {
 
     @Autowired
     TokenRepo tokenRepo;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     public void DeleteUser(Long idUser) {
         tokenRepo.deleteById(idUser);
@@ -54,6 +58,15 @@ public class    UsersService {
 
     public User getUser(Long idUser){
         return userRepo.findUserByIdUser(idUser).orElseThrow();
+    }
+
+    public void changePassword(String email, String currentPassword, String newPassword) {
+        User user = userRepo.findUserByEmail(email).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            throw new IllegalArgumentException("Current password is incorrect");
+        }
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepo.save(user);
     }
 
 }

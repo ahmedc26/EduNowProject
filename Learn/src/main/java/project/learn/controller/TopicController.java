@@ -67,10 +67,15 @@ public class TopicController {
         return topicService.findAllTopics();
     }
 
-        @GetMapping("getTopics/{idLevel}")
+    @GetMapping("getTopics/{idLevel}")
         public List<Topic> getTopicsByLevel(@PathVariable Long idLevel) {
-            return topicRepo.findBySubjectLevelIdLevel(idLevel);
-        }
+        return topicRepo.findBySubjectLevelIdLevel(idLevel);
+    }
+
+    @GetMapping("getTopics/{idSubject}/{idLevel}")
+    public List<Topic> getTopicByIdSubject(@PathVariable Long idLevel, @PathVariable Long idSubject) {
+        return topicRepo.findBySubjectIdSubjectAndSubjectLevelIdLevel(idLevel,idSubject);
+    }
 
     @GetMapping("/count-topics/{idSubject}")
     public Long countTopics(@PathVariable Long idSubject) {

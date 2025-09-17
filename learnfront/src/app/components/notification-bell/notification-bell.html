@@ -1,0 +1,44 @@
+<div class="notification-bell-container">
+  <div class="bell-icon" (click)="toggleDropdown()">
+    <i class="fas fa-bell"></i>
+    <span class="notification-badge" *ngIf="unreadCount > 0">{{ unreadCount > 99 ? '99+' : unreadCount }}</span>
+  </div>
+
+  <div class="notification-dropdown" *ngIf="showDropdown" (click)="$event.stopPropagation()">
+    <div class="dropdown-header">
+      <h4>Notifications</h4>
+      <button class="mark-all-read-btn" (click)="markAllAsRead()" *ngIf="unreadCount > 0">
+        Mark all read
+      </button>
+    </div>
+
+    <div class="notifications-list" *ngIf="recentNotifications.length > 0; else noNotifications">
+      <div class="notification-item" 
+           *ngFor="let notification of recentNotifications" 
+           [class.unread]="!notification.isRead"
+           (click)="markAsRead(notification)">
+        
+        <div class="notification-content">
+          <div class="notification-title">{{ notification.title }}</div>
+          <div class="notification-message">{{ notification.message }}</div>
+          <div class="notification-time">{{ formatDate(notification.createdDate) }}</div>
+        </div>
+        
+        <div class="unread-indicator" *ngIf="!notification.isRead"></div>
+      </div>
+    </div>
+
+    <ng-template #noNotifications>
+      <div class="no-notifications">
+        <p>No new notifications</p>
+      </div>
+    </ng-template>
+
+    <div class="dropdown-footer">
+      <a href="/notifications" class="view-all-link">View all notifications</a>
+    </div>
+  </div>
+</div>
+
+<div class="dropdown-backdrop" *ngIf="showDropdown" (click)="closeDropdown()"></div>
+

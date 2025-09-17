@@ -55,4 +55,8 @@ downloadFile(filePath: string): Observable<Blob> {
     return this.http.get<Topic[]>(`${this.apiUrl}/getTopics/${idLevel}`)
   }
 
+  getTopicsBySubjectAndLevel(idLevel:number,idSubject:number):Observable<Topic[]>{
+    return this.http.get<Topic[]>(`${this.apiUrl}/getTopics/${idSubject}/${idLevel}`)
+  }
+
 }

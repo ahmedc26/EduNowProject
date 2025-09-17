@@ -12,7 +12,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioButton, MatRadioGroup, MatRadioModule } from '@angular/material/radio';
 import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
 import { Home } from './components/home/home';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './services/auth.interceptor';
 import { ActivateDialog } from './components/activate-dialog/activate-dialog';
 import { AdminHome } from './components/admin-home/admin-home';
 import { StudentHome } from './components/student-home/student-home';
@@ -34,9 +35,13 @@ import { Courses } from './components/courses/courses';
 import { UserProfile } from './components/user-profile/user-profile';
 import { UserLevels } from './components/user-levels/user-levels';
 import { AdminTopics } from './components/admin-topics/admin-topics';
+import { ChangePasswordComponent } from './components/change-password/change-password';
 import { UserTopic } from './components/user-topic/user-topic';
 import { TopicsLevel } from './components/topics-level/topics-level';
 import { AccessDenied } from './components/access-denied/access-denied';
+import { TopicsSubject } from './components/topics-subject/topics-subject';
+import { NotificationBellComponent } from './components/notification-bell/notification-bell';
+import { NotificationsComponent } from './components/notifications/notifications';
 
 
 
@@ -56,13 +61,16 @@ import { AccessDenied } from './components/access-denied/access-denied';
     NavBar,
     Courses,
     UserProfile,
+    ChangePasswordComponent,
     UserLevels,
     AdminTopics,
     UserTopic,
     TopicsLevel,
-    AccessDenied
+    AccessDenied,
+    TopicsSubject,
+    NotificationBellComponent,
+    NotificationsComponent
 
-    
   ],
   imports: [
     BrowserModule,
@@ -91,7 +99,8 @@ import { AccessDenied } from './components/access-denied/access-denied';
     MatPaginator
   ],
   providers: [
-    provideBrowserGlobalErrorListeners()
+    provideBrowserGlobalErrorListeners(),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [App]
 })

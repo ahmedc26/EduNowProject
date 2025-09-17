@@ -19,6 +19,9 @@ import { UserTopic } from './components/user-topic/user-topic';
 import { TopicsLevel } from './components/topics-level/topics-level';
 import { StudentAuthGuardService } from './services/student-auth-guard.service';
 import { AccessDenied } from './components/access-denied/access-denied';
+import { TopicsSubject } from './components/topics-subject/topics-subject';
+import { NotificationsComponent } from './components/notifications/notifications';
+import { ChangePasswordComponent } from './components/change-password/change-password';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -27,7 +30,7 @@ const routes: Routes = [
   { path: 'Admin-home', component:AdminHome,canActivate:[AuthGuardService]},
   { path: 'Admin-profile', component:AdminProfile,canActivate:[AuthGuardService]},
   { path: 'user-list', component:UserList, canActivate:[AuthGuardService]},
-  { path: 'update-user/:idUser', component: UserUpdate, canActivate:[AuthGuardService]},
+  { path: 'update-user/:idUser', component: UserUpdate},
   { path: 'level', component: EduLevel, canActivate:[AuthGuardService]},
   
   { path: 'nav-bar', component: NavBar},
@@ -36,11 +39,14 @@ const routes: Routes = [
   { path: 'admin-topics',component:AdminTopics, canActivate:[AuthGuardService]},
   { path: 'Student-home', component:StudentHome},
   { path: 'level/:idLevel/topics', component: TopicsLevel },
+  { path: 'level/:idLevel/subject/:idSubject/topics', component: TopicsSubject },
   { path: 'user-home', component: UserHome, canActivate:[StudentAuthGuardService]},
   { path: 'courses', component: Courses, canActivate:[StudentAuthGuardService]},
   { path: 'user-profile',component:UserProfile, canActivate:[StudentAuthGuardService]},
+  { path: 'change-password', component: ChangePasswordComponent, canActivate:[StudentAuthGuardService]},
   { path: 'user-levels',component:UserLevels, canActivate:[StudentAuthGuardService]},
   { path: 'user-topic', component:UserTopic, canActivate:[StudentAuthGuardService]},
+  { path: 'notifications', component: NotificationsComponent, canActivate:[StudentAuthGuardService]},
 
   { path: 'access-denied', component: AccessDenied },
 ];

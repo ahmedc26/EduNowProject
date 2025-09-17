@@ -27,10 +27,10 @@
         </div>
         
         <div class="profile-actions">
-          <button class="btn-primary" >
+          <button class="btn-primary" (click)="updateUser(currentUser?.idUser)">
             <span class="material-icons">edit</span> Edit Profile
           </button>
-          <button class="btn-accent" >
+          <button class="btn-accent" (click)="changePassword()">
             <span class="material-icons">lock</span> Change Password
           </button>
           <button class="btn-warn" (click)="logout()">

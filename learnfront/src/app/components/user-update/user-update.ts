@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '../../models/user.model';
+import { jwtDecode } from 'jwt-decode';
 
 
 @Component({
@@ -15,6 +16,7 @@ import { User } from '../../models/user.model';
 export class UserUpdate {
   userForm: FormGroup;
   isLoading = true;
+  
 
   constructor(
     private route: ActivatedRoute,
@@ -34,6 +36,8 @@ export class UserUpdate {
 
     });
   }
+
+  
 
   ngOnInit(){
 
@@ -67,13 +71,32 @@ export class UserUpdate {
     }
 
       onSubmit() {
+
+        const token = localStorage.getItem('token');
+        let hasAdminRole = false;
+        let hasStudentRole = false;
+        
+        if (token) {
+          const decodedToken: any = jwtDecode(token);
+          hasAdminRole = decodedToken.authorities && decodedToken.authorities.includes('USER');
+          hasStudentRole = decodedToken.authorities && decodedToken.authorities.includes('STUDENT');
+        } else {
+
+  console.error('No token found in localStorage');
+
+      }
         if (this.userForm.valid) {
-          // Prepare the user object (include disabled fields if needed)
           const updatedUser = { ...this.userForm.getRawValue() };
           this.userService.updateUser(updatedUser).subscribe({
-            next: () => {
+            next: (response) => {
+              if (response?.token) {
+                localStorage.setItem('token', response.token);
+              }
               this.snackBar.open('User updated successfully', 'Close', { duration: 3000 });
-              this.router.navigate(['/user-list']);
+              if(hasAdminRole)
+                this.router.navigate(['/user-list']);
+              else if (hasStudentRole)
+                this.router.navigate(['/user-profile']);
             },
             error: () => {
               this.snackBar.open('Error updating user', 'Close', { duration: 3000 });
@@ -81,6 +104,16 @@ export class UserUpdate {
           });
         }
       }
+
+      private navigateAfterUpdate(hasAdminRole: boolean, hasStudentRole: boolean): void {
+  if (hasAdminRole) {
+    this.router.navigate(['/user-list']);
+  } else if (hasStudentRole) {
+    this.router.navigate(['/user-profile']);
+  }}
+
+
+  
   ReturnToList() {
     this.router.navigate(['user-list']);
   }

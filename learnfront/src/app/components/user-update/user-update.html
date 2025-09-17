@@ -1,72 +1,152 @@
-<div class="container">
-  <h2>Update User</h2>
+<app-nav-bar></app-nav-bar>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update User Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <div *ngIf="isLoading" class="loading-spinner">
-
-    <p>Loading user data...</p>
-  </div>
-
-  <form *ngIf="!isLoading" [formGroup]="userForm" (ngSubmit)="onSubmit()" >
-    <!-- ID Field -->
-
-
-    <!-- First Name -->
-    <div class="form-group">
-      <mat-form-field appearance="outline">
-        <mat-label>First Name</mat-label>
-        <input matInput formControlName="firstName" required>
-        <mat-error *ngIf="userForm.get('firstName')?.invalid">
-          First name is required
-        </mat-error>
-      </mat-form-field>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2><i class="fas fa-user-edit"></i> Update User Profile</h2>
     </div>
+    
+    <div class="form-content">
+      <div class="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+        <p>Loading user data...</p>
+      </div>
 
-    <!-- Last Name -->
-    <div class="form-group">
-      <mat-form-field appearance="outline">
-        <mat-label>Last Name</mat-label>
-        <input matInput formControlName="lastName" required>
+      <form *ngIf="!isLoading" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <div class="form-field">
+            <input id="firstName" matInput formControlName="firstName" required>
+            <i class="fas fa-user field-icon"></i>
+          </div>
+          <div class="error-message" style="display: none;">
+            <i class="fas fa-exclamation-circle"></i>
+            First name is required
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <div class="form-field">
+             <input matInput formControlName="lastName" required>
         <mat-error *ngIf="userForm.get('lastName')?.invalid">
           Last name is required
         </mat-error>
-      </mat-form-field>
-    </div>
+            <i class="fas fa-user field-icon"></i>
+          </div>
+          <div class="error-message" style="display: none;">
+            <i class="fas fa-exclamation-circle"></i>
+            Last name is required
+          </div>
+        </div>
 
-    <!-- Email -->
-    <div class="form-group">
-      <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" type="email" required>
-        <mat-error>
-          Email is required
-        </mat-error>
-        <mat-error >
-          Please enter a valid email
-        </mat-error>
-      </mat-form-field>
-    </div>
-<div class="form-group">
-      <mat-form-field appearance="outline">
-        <mat-label>Birthday</mat-label>
-        <input matInput formControlName="birthDate" type="date">
-      </mat-form-field>
-    </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="form-field">
+            <input matInput formControlName="email" type="email" required>
 
-    <div class="form-group">
-      <mat-form-field appearance="outline">
-        <mat-label>Phone Number</mat-label>
-        <input matInput formControlName="phoneNumber">
-      </mat-form-field>
-    </div>
+            <i class="fas fa-envelope field-icon"></i>
+          </div>
+          <div class="error-message" style="display: none;">
+            <i class="fas fa-exclamation-circle"></i>
+            Please enter a valid email
+          </div>
+        </div>
 
-    <!-- Submit Button -->
-    <div class="actions">
-      <button mat-raised-button color="primary" type="submit" >
-        Update User
-      </button>
-      <button mat-raised-button type="button" class="cancel-button" (click)="ReturnToList()" >
-        Cancel
-      </button>
+        <div class="form-group">
+          <label for="birthDate">Birthday</label>
+          <div class="form-field">
+             <input matInput formControlName="birthDate" type="date">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="phoneNumber">Phone Number</label>
+          <div class="form-field">
+            <input matInput formControlName="phoneNumber">
+            <i class="fas fa-phone field-icon"></i>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit">
+            <i class="fas fa-save"></i> Update
+          </button>
+          <button type="button" class="cancel-button"  >
+            <i class="fas fa-times"></i> Cancel
+          </button>
+        </div>
+      </form>
     </div>
-  </form>
-</div>
+  </div>
+
+  <script>
+    // Simple form interaction for demonstration
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.querySelector('form');
+      const inputs = document.querySelectorAll('input');
+      
+      // Add focus effects
+      inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          this.parentElement.style.transform = 'translateY(-2px)';
+        });
+        
+        input.addEventListener('blur', function() {
+          this.parentElement.style.transform = 'translateY(0)';
+        });
+      });
+      
+      // Form submission
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Simple validation
+        let isValid = true;
+        const firstName = document.getElementById('firstName');
+        const lastName = document.getElementById('lastName');
+        const email = document.getElementById('email');
+        
+        if (!firstName.value.trim()) {
+          isValid = false;
+          firstName.nextElementSibling.nextElementSibling.style.display = 'flex';
+        }
+        
+        if (!lastName.value.trim()) {
+          isValid = false;
+          lastName.nextElementSibling.nextElementSibling.style.display = 'flex';
+        }
+        
+        if (!email.value.trim() || !email.value.includes('@')) {
+          isValid = false;
+          email.nextElementSibling.nextElementSibling.style.display = 'flex';
+        }
+        
+        if (isValid) {
+          alert('Form submitted successfully!');
+        }
+      });
+      
+      // Clear error messages on input
+      inputs.forEach(input => {
+        input.addEventListener('input', function() {
+          const errorMsg = this.nextElementSibling.nextElementSibling;
+          if (errorMsg) {
+            errorMsg.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

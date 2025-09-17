@@ -28,11 +28,11 @@ export class UserService {
   return this.http.delete<void>(`${this.apiUrl}/delete/${iduser}`);
   }
 
-  updateUser(user: User): Observable<User> {
-  return this.http.put<User>(`${this.apiUrl}/update/user`, user)
-.pipe(
+  updateUser(user: User): Observable<{ message: string; token: string }> {
+  return this.http.put<{ message: string; token: string }>(`${this.apiUrl}/update/user`, user)
+  .pipe(
         catchError(error => {
-          console.error('Error updating agency:', error);
+          console.error('Error updating user:', error);
           return throwError(() => error);
         })
       );
@@ -41,6 +41,16 @@ export class UserService {
 
   getUserById(iduser: number) {
     return this.http.get<User>(`${this.apiUrl}/view-user/${iduser}`);
+  }
+
+  changePassword(payload: { currentPassword: string; newPassword: string }): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`${this.apiUrl}/change-password`, payload)
+      .pipe(
+        catchError(error => {
+          console.error('Error changing password:', error);
+          return throwError(() => error);
+        })
+      );
   }
 
   }
