@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { Router } from '@angular/router';
+import { ProgressService, StudentProgress } from '../../services/progress.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-student-home',
@@ -8,10 +10,26 @@ import { Router } from '@angular/router';
   templateUrl: './student-home.html',
   styleUrl: './student-home.css'
 })
-export class StudentHome {
+export class StudentHome implements OnInit, OnDestroy {
   userName: string = '';
-  constructor(private router:Router){
-  this.getUserNameFromToken();
+  studentProgress: StudentProgress | null = null;
+  private progressSubscription: Subscription = new Subscription();
+
+  constructor(
+    private router: Router,
+    private progressService: ProgressService
+  ) {
+    this.getUserNameFromToken();
+  }
+
+  ngOnInit() {
+    this.progressSubscription = this.progressService.progress$.subscribe(progress => {
+      this.studentProgress = progress;
+    });
+  }
+
+  ngOnDestroy() {
+    this.progressSubscription.unsubscribe();
   }
 
 private getUserNameFromToken() {

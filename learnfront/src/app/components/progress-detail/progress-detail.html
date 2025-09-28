@@ -1,0 +1,299 @@
+<app-nav-bar></app-nav-bar>
+<div class="progress-container">
+  <div class="header-section">
+    <div class="header-content">
+      <h1 class="page-title">
+        <i class="fas fa-chart-line"></i>
+        Progress Dashboard
+      </h1>
+      <p class="page-subtitle">Track your learning journey and performance</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-secondary" (click)="resetProgress()">
+        <i class="fas fa-redo"></i>
+        Reset Progress
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Loading your progress...</p>
+  </div>
+
+  <!-- Main Content -->
+  <div *ngIf="!isLoading && progressStats" class="main-content">
+    
+    <!-- Overview Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card primary">
+        <div class="stat-icon">
+          <i class="fas fa-trophy"></i>
+        </div>
+        <div class="stat-content">
+          <h3>{{ progressStats.accuracyPercentage }}%</h3>
+          <p>Overall Accuracy</p>
+        </div>
+      </div>
+
+      <div class="stat-card success">
+        <div class="stat-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="stat-content">
+          <h3>{{ progressStats.correctAnswers }}</h3>
+          <p>Correct Answers</p>
+        </div>
+      </div>
+
+      <div class="stat-card warning">
+        <div class="stat-icon">
+          <i class="fas fa-times-circle"></i>
+        </div>
+        <div class="stat-content">
+          <h3>{{ progressStats.incorrectAnswers }}</h3>
+          <p>Incorrect Answers</p>
+        </div>
+      </div>
+
+      <div class="stat-card info">
+        <div class="stat-icon">
+          <i class="fas fa-fire"></i>
+        </div>
+        <div class="stat-content">
+          <h3>{{ progressStats.streak }}</h3>
+          <p>Current Streak</p>
+        </div>
+      </div>
+
+      <div class="stat-card secondary">
+        <div class="stat-icon">
+          <i class="fas fa-clock"></i>
+        </div>
+        <div class="stat-content">
+          <h3>{{ formatTime(progressStats.averageTimePerQuestion) }}</h3>
+          <p>Avg. Time/Question</p>
+        </div>
+      </div>
+
+      <div class="stat-card accent">
+        <div class="stat-icon">
+          <i class="fas fa-star"></i>
+        </div>
+        <div class="stat-content">
+          <h3>{{ progressStats.bestStreak }}</h3>
+          <p>Best Streak</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs-container">
+      <div class="tabs">
+        <button 
+          class="tab-button" 
+          [class.active]="selectedTab === 'overview'"
+          (click)="selectedTab = 'overview'">
+          <i class="fas fa-chart-pie"></i>
+          Overview
+        </button>
+        <button 
+          class="tab-button" 
+          [class.active]="selectedTab === 'questions'"
+          (click)="selectedTab = 'questions'">
+          <i class="fas fa-question-circle"></i>
+          Question History
+        </button>
+        <button 
+          class="tab-button" 
+          [class.active]="selectedTab === 'subjects'"
+          (click)="selectedTab = 'subjects'">
+          <i class="fas fa-book"></i>
+          By Subject
+        </button>
+        <button 
+          class="tab-button" 
+          [class.active]="selectedTab === 'difficulty'"
+          (click)="selectedTab = 'difficulty'">
+          <i class="fas fa-layer-group"></i>
+          By Difficulty
+        </button>
+      </div>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="tab-content">
+      
+      <!-- Overview Tab -->
+      <div *ngIf="selectedTab === 'overview'" class="overview-content">
+        <div class="overview-grid">
+          <!-- Subject Performance -->
+          <div class="overview-card">
+            <h3><i class="fas fa-book"></i> Subject Performance</h3>
+            <div class="subject-list">
+              <div *ngFor="let subject of progressStats.subjectBreakdown" class="subject-item">
+                <div class="subject-info">
+                  <span class="subject-name">{{ subject.subject }}</span>
+                  <span class="subject-stats">{{ subject.correctAnswers }}/{{ subject.totalQuestions }}</span>
+                </div>
+                <div class="progress-bar">
+                  <div 
+                    class="progress-fill" 
+                    [style.width.%]="subject.accuracyPercentage"
+                    [style.background-color]="getAccuracyColor(subject.accuracyPercentage)">
+                  </div>
+                </div>
+                <span class="accuracy-percentage">{{ subject.accuracyPercentage }}%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Difficulty Performance -->
+          <div class="overview-card">
+            <h3><i class="fas fa-layer-group"></i> Difficulty Performance</h3>
+            <div class="difficulty-list">
+              <div *ngFor="let difficulty of progressStats.difficultyBreakdown" class="difficulty-item">
+                <div class="difficulty-info">
+                  <span class="difficulty-name">{{ difficulty.difficulty }}</span>
+                  <span class="difficulty-stats">{{ difficulty.correctAnswers }}/{{ difficulty.totalQuestions }}</span>
+                </div>
+                <div class="progress-bar">
+                  <div 
+                    class="progress-fill" 
+                    [style.width.%]="difficulty.accuracyPercentage"
+                    [style.background-color]="getAccuracyColor(difficulty.accuracyPercentage)">
+                  </div>
+                </div>
+                <span class="accuracy-percentage">{{ difficulty.accuracyPercentage }}%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Questions Tab -->
+      <div *ngIf="selectedTab === 'questions'" class="questions-content">
+        <div class="filters-section">
+          <div class="filter-group">
+            <label>Subject:</label>
+            <select [(ngModel)]="selectedSubject" class="filter-select">
+              <option *ngFor="let subject of getSubjects()" [value]="subject">
+                {{ subject === 'all' ? 'All Subjects' : subject }}
+              </option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Difficulty:</label>
+            <select [(ngModel)]="selectedDifficulty" class="filter-select">
+              <option *ngFor="let difficulty of getDifficulties()" [value]="difficulty">
+                {{ difficulty === 'all' ? 'All Levels' : difficulty }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="questions-list">
+          <div *ngFor="let question of getFilteredQuestions()" class="question-item" [class.correct]="question.isCorrect" [class.incorrect]="!question.isCorrect">
+            <div class="question-header">
+              <div class="question-status">
+                <i class="fas" [class.fa-check-circle]="question.isCorrect" [class.fa-times-circle]="!question.isCorrect"></i>
+                <span class="status-text">{{ question.isCorrect ? 'Correct' : 'Incorrect' }}</span>
+              </div>
+              <div class="question-meta">
+                <span class="subject-badge">{{ question.subject }}</span>
+                <span class="difficulty-badge" [class]="'difficulty-' + question.difficulty.toLowerCase()">{{ question.difficulty }}</span>
+                <span class="time-spent">{{ formatTime(question.timeSpent) }}</span>
+                <span class="timestamp">{{ formatDate(question.timestamp) }}</span>
+              </div>
+            </div>
+            <div class="question-content">
+              <h4>{{ question.question }}</h4>
+              <div class="answers">
+                <div class="answer-row">
+                  <span class="answer-label">Your Answer:</span>
+                  <span class="answer-value user-answer" [class.correct]="question.isCorrect">{{ question.userAnswer }}</span>
+                </div>
+                <div class="answer-row" *ngIf="!question.isCorrect">
+                  <span class="answer-label">Correct Answer:</span>
+                  <span class="answer-value correct-answer">{{ question.correctAnswer }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subjects Tab -->
+      <div *ngIf="selectedTab === 'subjects'" class="subjects-content">
+        <div class="subjects-grid">
+          <div *ngFor="let subject of progressStats.subjectBreakdown" class="subject-card">
+            <div class="subject-header">
+              <h3>{{ subject.subject }}</h3>
+              <div class="subject-accuracy" [style.color]="getAccuracyColor(subject.accuracyPercentage)">
+                {{ subject.accuracyPercentage }}%
+              </div>
+            </div>
+            <div class="subject-stats">
+              <div class="stat-item">
+                <span class="stat-label">Questions:</span>
+                <span class="stat-value">{{ subject.totalQuestions }}</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Correct:</span>
+                <span class="stat-value">{{ subject.correctAnswers }}</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Incorrect:</span>
+                <span class="stat-value">{{ subject.totalQuestions - subject.correctAnswers }}</span>
+              </div>
+            </div>
+            <div class="progress-bar">
+              <div 
+                class="progress-fill" 
+                [style.width.%]="subject.accuracyPercentage"
+                [style.background-color]="getAccuracyColor(subject.accuracyPercentage)">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Difficulty Tab -->
+      <div *ngIf="selectedTab === 'difficulty'" class="difficulty-content">
+        <div class="difficulty-grid">
+          <div *ngFor="let difficulty of progressStats.difficultyBreakdown" class="difficulty-card">
+            <div class="difficulty-header">
+              <h3>{{ difficulty.difficulty }}</h3>
+              <div class="difficulty-accuracy" [style.color]="getAccuracyColor(difficulty.accuracyPercentage)">
+                {{ difficulty.accuracyPercentage }}%
+              </div>
+            </div>
+            <div class="difficulty-stats">
+              <div class="stat-item">
+                <span class="stat-label">Questions:</span>
+                <span class="stat-value">{{ difficulty.totalQuestions }}</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Correct:</span>
+                <span class="stat-value">{{ difficulty.correctAnswers }}</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Incorrect:</span>
+                <span class="stat-value">{{ difficulty.totalQuestions - difficulty.correctAnswers }}</span>
+              </div>
+            </div>
+            <div class="progress-bar">
+              <div 
+                class="progress-fill" 
+                [style.width.%]="difficulty.accuracyPercentage"
+                [style.background-color]="getAccuracyColor(difficulty.accuracyPercentage)">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,5 +1,27 @@
 <div class="home-container">
   <h1>Welcome!, {{userName}}</h1>
-  <button mat-raised-button color="warn" (click)="logout()">Logout</button>
-  <h1></h1>
+  
+  <!-- Progress Stats -->
+  <div class="progress-summary" *ngIf="studentProgress && studentProgress.totalQuestionsCount > 0">
+    <div class="progress-item">
+      <span class="progress-number">{{studentProgress.correctAnswersCount}}</span>
+      <span class="progress-label">Correct Answers</span>
+    </div>
+    <div class="progress-item">
+      <span class="progress-number">{{studentProgress.totalQuestionsCount}}</span>
+      <span class="progress-label">Total Questions</span>
+    </div>
+    <div class="progress-item">
+      <span class="progress-number">{{studentProgress.accuracyPercentage}}%</span>
+      <span class="progress-label">Accuracy</span>
+    </div>
+  </div>
+  
+  <div class="action-buttons">
+    <button mat-raised-button color="primary" routerLink="/question-generator">
+      <mat-icon>quiz</mat-icon>
+      Generate Questions
+    </button>
+    <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+  </div>
 </div>

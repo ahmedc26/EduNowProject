@@ -25,6 +25,9 @@ import { SideBar } from './components/side-bar/side-bar';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { MatDivider } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { AdminProfile } from './components/admin-profile/admin-profile';
 import { UserList } from './components/user-list/user-list';
 import { UserUpdate } from './components/user-update/user-update';
@@ -42,6 +45,9 @@ import { AccessDenied } from './components/access-denied/access-denied';
 import { TopicsSubject } from './components/topics-subject/topics-subject';
 import { NotificationBellComponent } from './components/notification-bell/notification-bell';
 import { NotificationsComponent } from './components/notifications/notifications';
+
+import { ProgressDetailComponent } from './components/progress-detail/progress-detail';
+
 
 
 
@@ -69,7 +75,9 @@ import { NotificationsComponent } from './components/notifications/notifications
     AccessDenied,
     TopicsSubject,
     NotificationBellComponent,
-    NotificationsComponent
+    NotificationsComponent,
+
+    ProgressDetailComponent,
 
   ],
   imports: [
@@ -96,7 +104,10 @@ import { NotificationsComponent } from './components/notifications/notifications
     MatSidenavContent,
     MatDivider,
     MatSnackBarModule,
-    MatPaginator
+    MatSelectModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule,
+    MatPaginator,
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

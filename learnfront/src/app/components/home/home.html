@@ -1,15 +1,345 @@
-<main class="home-hero">
-  <div class="hero-content">
-    <h1>Welcome to Learn</h1>
-    <p class="subtitle">
-      Empower your learning journey with our modern, intuitive platform.<br>
-      Join as a student or admin and unlock new possibilities!
-    </p>
-    <div class="hero-actions">
-      <a routerLink="/register" class="btn btn-secondary">Go Into</a>
+<!-- Navigation Bar -->
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-brand">
+      <i class="fas fa-graduation-cap"></i>
+      <span>LearnPlatform</span>
+    </div>
+    <div class="nav-actions">
+      <button class="btn btn-primary" routerLink="/register">Get Started</button>
+
     </div>
   </div>
-  <div class="hero-image">
-    <img src="assets/images/signup.svg" alt="Learning Illustration" />
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-container">
+  <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fas fa-star"></i>
+        <span>Join thousands of learners worldwide</span>
+      </div>
+      <h1 class="hero-title">
+        Master Any Subject with
+        <span class="gradient-text">AI-Powered Learning</span>
+      </h1>
+      <p class="hero-description">
+        Transform your learning experience with our intelligent question generator, 
+        personalized progress tracking, and comprehensive study materials. 
+        From mathematics to literature, we've got you covered.
+    </p>
+    <div class="hero-actions">
+        <button class="btn btn-primary btn-large" routerLink="/register">
+          <i class="fas fa-rocket"></i>
+          Start Learning Free
+        </button>
+        <button class="btn btn-secondary btn-large" (click)="scrollToFeatures()">
+          <i class="fas fa-play"></i>
+          Watch Demo
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number">10K+</span>
+          <span class="stat-label">Active Learners</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">50K+</span>
+          <span class="stat-label">Questions Generated</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">95%</span>
+          <span class="stat-label">Success Rate</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="floating-cards">
+        <div class="card card-1">
+          <div class="card-icon">
+            <i class="fas fa-brain"></i>
+          </div>
+          <div class="card-content">
+            <span class="card-title">Smart Questions</span>
+            <span class="card-desc">AI-generated content</span>
+          </div>
+        </div>
+        <div class="card card-2">
+          <div class="card-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="card-content">
+            <span class="card-title">Progress Tracking</span>
+            <span class="card-desc">Real-time analytics</span>
+          </div>
+        </div>
+        <div class="card card-3">
+          <div class="card-icon">
+            <i class="fas fa-trophy"></i>
+          </div>
+          <div class="card-content">
+            <span class="card-title">Achievements</span>
+            <span class="card-desc">Gamified learning</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</main>
+</section>
+
+<!-- Features Section -->
+<section class="features-section" id="features">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Why Choose LearnPlatform?</h2>
+      <p class="section-description">
+        Discover the features that make learning engaging, effective, and enjoyable
+      </p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-robot"></i>
+        </div>
+        <h3 class="feature-title">AI Question Generator</h3>
+        <p class="feature-description">
+          Generate unlimited practice questions across multiple subjects and difficulty levels. 
+          Our AI creates personalized content based on your learning needs.
+        </p>
+        <div class="feature-highlights">
+          <span class="highlight">Multiple Subjects</span>
+          <span class="highlight">Adaptive Difficulty</span>
+          <span class="highlight">Instant Generation</span>
+        </div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-analytics"></i>
+        </div>
+        <h3 class="feature-title">Progress Analytics</h3>
+        <p class="feature-description">
+          Track your learning journey with detailed analytics, performance insights, 
+          and personalized recommendations to optimize your study sessions.
+        </p>
+        <div class="feature-highlights">
+          <span class="highlight">Real-time Tracking</span>
+          <span class="highlight">Performance Insights</span>
+          <span class="highlight">Personalized Tips</span>
+        </div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-gamepad"></i>
+        </div>
+        <h3 class="feature-title">Gamified Learning</h3>
+        <p class="feature-description">
+          Stay motivated with achievements, streaks, and leaderboards. 
+          Turn learning into an engaging game with rewards and challenges.
+        </p>
+        <div class="feature-highlights">
+          <span class="highlight">Achievements</span>
+          <span class="highlight">Study Streaks</span>
+          <span class="highlight">Leaderboards</span>
+        </div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-layer-group"></i>
+        </div>
+        <h3 class="feature-title">Multi-Level System</h3>
+        <p class="feature-description">
+          Progress through different educational levels from primary to advanced. 
+          Each level is carefully designed to match your current knowledge.
+        </p>
+        <div class="feature-highlights">
+          <span class="highlight">Primary to Advanced</span>
+          <span class="highlight">Structured Learning</span>
+          <span class="highlight">Level Progression</span>
+        </div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <h3 class="feature-title">Community Learning</h3>
+        <p class="feature-description">
+          Join a vibrant community of learners, share your progress, 
+          and get support from peers and educators worldwide.
+        </p>
+        <div class="feature-highlights">
+          <span class="highlight">Global Community</span>
+          <span class="highlight">Peer Support</span>
+          <span class="highlight">Expert Guidance</span>
+        </div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-mobile-alt"></i>
+        </div>
+        <h3 class="feature-title">Mobile Optimized</h3>
+        <p class="feature-description">
+          Learn anywhere, anytime with our fully responsive design. 
+          Access all features seamlessly across desktop, tablet, and mobile devices.
+        </p>
+        <div class="feature-highlights">
+          <span class="highlight">Responsive Design</span>
+          <span class="highlight">Offline Access</span>
+          <span class="highlight">Cross-Platform</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-description">
+        Get started in minutes and begin your learning journey
+      </p>
+    </div>
+    <div class="steps-container">
+      <div class="step-item">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3 class="step-title">Sign Up & Choose Level</h3>
+          <p class="step-description">
+            Create your account and select your educational level. 
+            Our system will customize content based on your needs.
+          </p>
+        </div>
+        <div class="step-visual">
+          <i class="fas fa-user-plus"></i>
+        </div>
+      </div>
+      
+      <div class="step-item">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3 class="step-title">Generate Questions</h3>
+          <p class="step-description">
+            Use our AI-powered question generator to create practice questions 
+            in your chosen subjects and topics.
+          </p>
+        </div>
+        <div class="step-visual">
+          <i class="fas fa-question-circle"></i>
+        </div>
+      </div>
+      
+      <div class="step-item">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3 class="step-title">Track Progress</h3>
+          <p class="step-description">
+            Monitor your performance with detailed analytics, 
+            achievements, and personalized learning insights.
+          </p>
+        </div>
+        <div class="step-visual">
+          <i class="fas fa-chart-bar"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Subjects Section -->
+<section class="subjects-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Explore Our Subjects</h2>
+      <p class="section-description">
+        Comprehensive coverage across multiple academic disciplines
+      </p>
+    </div>
+    <div class="subjects-grid">
+      <div class="subject-card" *ngFor="let subject of getSubjects()">
+        <div class="subject-icon" [style.background]="subject.color">
+          <i [class]="subject.icon"></i>
+        </div>
+        <h3 class="subject-title">{{subject.name}}</h3>
+        <p class="subject-description">{{subject.description}}</p>
+        <div class="subject-stats">
+          <span class="stat">{{subject.questions}}+ Questions</span>
+          <span class="stat">{{subject.topics}} Topics</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">What Our Learners Say</h2>
+      <p class="section-description">
+        Join thousands of satisfied students who have transformed their learning
+      </p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card" *ngFor="let testimonial of getTestimonials()">
+        <div class="testimonial-content">
+          <div class="quote-icon">
+            <i class="fas fa-quote-left"></i>
+          </div>
+          <p class="testimonial-text">"{{testimonial.text}}"</p>
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">
+            <img [src]="testimonial.avatar" [alt]="testimonial.name">
+          </div>
+          <div class="author-info">
+            <span class="author-name">{{testimonial.name}}</span>
+            <span class="author-role">{{testimonial.role}}</span>
+          </div>
+          <div class="testimonial-rating">
+            <i class="fas fa-star" *ngFor="let star of [1,2,3,4,5]"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-content">
+      <h2 class="cta-title">Ready to Transform Your Learning?</h2>
+      <p class="cta-description">
+        Join thousands of learners who are already mastering new subjects with our platform. 
+        Start your journey today - it's completely free!
+      </p>
+      <div class="cta-actions">
+        <button class="btn btn-primary btn-large" routerLink="/register">
+          <i class="fas fa-rocket"></i>
+          Get Started Now
+        </button>
+        <button class="btn btn-outline btn-large" (click)="scrollToFeatures()">
+          <i class="fas fa-info-circle"></i>
+          Learn More
+        </button>
+      </div>
+      <div class="cta-guarantee">
+        <i class="fas fa-shield-alt"></i>
+        <span>100% Free • No Credit Card Required • Start Learning in Seconds</span>
+    </div>
+  </div>
+  </div>
+</section>
+
+
+<!-- Scroll to Top Button -->
+<button class="scroll-to-top" (click)="scrollToTop()" >
+  <i class="fas fa-arrow-up"></i>
+</button>

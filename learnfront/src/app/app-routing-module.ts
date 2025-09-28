@@ -23,6 +23,8 @@ import { TopicsSubject } from './components/topics-subject/topics-subject';
 import { NotificationsComponent } from './components/notifications/notifications';
 import { ChangePasswordComponent } from './components/change-password/change-password';
 
+import { ProgressDetailComponent } from './components/progress-detail/progress-detail';
+
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: Home },
@@ -37,6 +39,7 @@ const routes: Routes = [
   
 
   { path: 'admin-topics',component:AdminTopics, canActivate:[AuthGuardService]},
+
   { path: 'Student-home', component:StudentHome},
   { path: 'level/:idLevel/topics', component: TopicsLevel },
   { path: 'level/:idLevel/subject/:idSubject/topics', component: TopicsSubject },
@@ -47,6 +50,8 @@ const routes: Routes = [
   { path: 'user-levels',component:UserLevels, canActivate:[StudentAuthGuardService]},
   { path: 'user-topic', component:UserTopic, canActivate:[StudentAuthGuardService]},
   { path: 'notifications', component: NotificationsComponent, canActivate:[StudentAuthGuardService]},
+
+  { path: 'progress-detail', component: ProgressDetailComponent, canActivate:[StudentAuthGuardService]},
 
   { path: 'access-denied', component: AccessDenied },
 ];
