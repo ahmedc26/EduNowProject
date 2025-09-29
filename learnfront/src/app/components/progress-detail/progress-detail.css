@@ -1,4 +1,4 @@
-/* Progress Detail Component Styles */
+
 .progress-container {
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -6,7 +6,11 @@
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* Header Section */
+.total{
+  color: red;
+}
+
+
 .header-section {
   display: flex;
   justify-content: space-between;
@@ -62,7 +66,7 @@
   transform: translateY(-2px);
 }
 
-/* Loading State */
+
 .loading-container {
   display: flex;
   flex-direction: column;
@@ -87,13 +91,12 @@
   100% { transform: rotate(360deg); }
 }
 
-/* Main Content */
+
 .main-content {
   max-width: 1400px;
   margin: 0 auto;
 }
 
-/* Stats Grid */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -150,7 +153,7 @@
   font-weight: 500;
 }
 
-/* Tabs */
+
 .tabs-container {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
@@ -192,7 +195,7 @@
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
-/* Tab Content */
+
 .tab-content {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
@@ -203,7 +206,7 @@
   min-height: 500px;
 }
 
-/* Overview Content */
+
 .overview-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -230,7 +233,7 @@
   color: #667eea;
 }
 
-/* Subject/Difficulty Lists */
+
 .subject-list, .difficulty-list {
   display: flex;
   flex-direction: column;
@@ -289,7 +292,7 @@
   text-align: right;
 }
 
-/* Questions Content */
+
 .filters-section {
   display: flex;
   gap: 1rem;
@@ -464,7 +467,7 @@
   color: #065f46;
 }
 
-/* Subjects/Difficulty Grid */
+
 .subjects-grid, .difficulty-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -525,7 +528,7 @@
   font-weight: 600;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
   .progress-container {
     padding: 1rem;

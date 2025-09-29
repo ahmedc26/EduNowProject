@@ -11,12 +11,12 @@
         </p>
         <div class="hero-stats">
           <div class="hero-stat">
-            <span class="stat-number">{{studyStreak}}</span>
+            <span class="stat-number">0</span>
             <span class="stat-label">Day Streak</span>
           </div>
           <div class="hero-stat">
-            <span class="stat-number">{{completedTopics}}</span>
-            <span class="stat-label">Topics Completed</span>
+            <span class="stat-number">{{studentProgress?.totalQuestionsCount}}</span>
+            <span class="stat-label">Questions Completed</span>
           </div>
           <div class="hero-stat">
             <span class="stat-number">{{studentProgress?.accuracyPercentage || 0}}%</span>
@@ -104,7 +104,7 @@
       <div class="actions-grid">
         <button class="action-btn primary" routerLink="/question-generator">
           <div class="action-icon">
-            <i class="fas fa-quiz"></i>
+            <i class="fa fa-question" aria-hidden="true"></i>
           </div>
           <div class="action-content">
             <span class="action-title">Practice Questions</span>
@@ -122,7 +122,7 @@
         </button>
         <button class="action-btn accent" routerLink="/progress-detail">
           <div class="action-icon">
-            <i class="fas fa-analytics"></i>
+            <i class="fa fa-area-chart" aria-hidden="true"></i>
           </div>
           <div class="action-content">
             <span class="action-title">View Progress</span>

@@ -25,10 +25,10 @@ export class StudentQuestionGenerator {
   levels = ['6eme', '5eme', '4eme', '3eme', '2eme', '1ere', 'Terminale'];
   levelTypes = ['primary', 'secondary'];
   subjects = ['French', 'English'];
-  topics = ['Grammaire', 'Litterature', 'Grammar', 'Literature', 'Vocabulaire','Writing'];
-  skills = ['Conjugaison', 'Comprehension', 'Tenses', 'Reading', 'Mots usuels','Essay skills'];
-  subSkills = ['Verbes du 2eme groupe', 'Idees principales', 'Future tense', 'Simple past', 'Equations', 'Functions', 'Animaux','Argumentation'];
-  subSubSkills = ['Futur simple', 'Past tense', 'Present perfect', 'Regular verbs', 'Quadratic functions','Noms'];
+  topics = ['Grammaire', 'Litterature', 'Grammar', 'Literature', 'Vocabulaire','Vocabulary','Writing'];
+  skills = ['Conjugaison', 'Comprehension', 'Tenses', 'Reading', 'Mots usuels','Essay skills','Analyse de texte','Animals'];
+  subSkills = ['Verbes du 1eme groupe','Verbes du 2eme groupe','Comprehension', 'Idees principales', 'Future tense', 'Simple past', 'Equations', 'Functions', 'Animaux','Argumentation','Identify animals'];
+  subSubSkills = ['Futur simple', 'Past tense', 'Present perfect', 'Regular verbs', 'Quadratic functions','Noms','Idees principales','Wild animals'];
 
   constructor(
     private fb: FormBuilder,
@@ -106,7 +106,7 @@ export class StudentQuestionGenerator {
     this.showResult = false;
   }
 
-  // New methods for answer validation and progress tracking
+
   submitAnswer() {
     if (!this.userAnswer.trim()) {
       this.snackBar.open('Please enter your answer before submitting.', 'Close', {
@@ -118,11 +118,9 @@ export class StudentQuestionGenerator {
 
     if (!this.generatedQuestion) return;
 
-    // Simple answer comparison (case-insensitive, trimmed)
+
     const correctAnswer = this.generatedQuestion.answer.toLowerCase().trim();
     const userAnswer = this.userAnswer.toLowerCase().trim();
-    
-    // Check for exact match or if user answer contains the correct answer
     this.isAnswerCorrect = correctAnswer === userAnswer || 
                           correctAnswer.includes(userAnswer) || 
                           userAnswer.includes(correctAnswer);

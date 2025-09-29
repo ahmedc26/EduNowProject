@@ -45,12 +45,12 @@ export class UserHome implements OnInit, OnDestroy {
   studentProgress: StudentProgress | null = null;
   private progressSubscription: Subscription = new Subscription();
 
-  // Enhanced data properties
+
   private achievements: Achievement[] = [];
   private studyGoals: StudyGoal[] = [];
   private recentActivity: ActivityItem[] = [];
 
-  // Toast notification properties
+
   showToast: boolean = false;
   toastType: 'success' | 'warning' | 'error' | 'info' = 'info';
   toastTitle: string = '';
@@ -194,7 +194,7 @@ export class UserHome implements OnInit, OnDestroy {
         type: 'question',
         icon: 'fas fa-question-circle',
         title: 'Answered Mathematics question',
-        time: this.getRelativeTime(now.getTime() - 1000 * 60 * 15), // 15 minutes ago
+        time: this.getRelativeTime(now.getTime() - 1000 * 60 * 15), 
         status: 'success',
         statusIcon: 'fas fa-check-circle'
       },
@@ -202,7 +202,7 @@ export class UserHome implements OnInit, OnDestroy {
         type: 'progress',
         icon: 'fas fa-chart-line',
         title: 'Accuracy improved to 75%',
-        time: this.getRelativeTime(now.getTime() - 1000 * 60 * 60), // 1 hour ago
+        time: this.getRelativeTime(now.getTime() - 1000 * 60 * 60), 
         status: 'success',
         statusIcon: 'fas fa-arrow-up'
       },
@@ -210,7 +210,7 @@ export class UserHome implements OnInit, OnDestroy {
         type: 'achievement',
         icon: 'fas fa-medal',
         title: 'Unlocked "First Steps" achievement',
-        time: this.getRelativeTime(now.getTime() - 1000 * 60 * 60 * 2), // 2 hours ago
+        time: this.getRelativeTime(now.getTime() - 1000 * 60 * 60 * 2),
         status: 'info',
         statusIcon: 'fas fa-star'
       },
@@ -218,7 +218,7 @@ export class UserHome implements OnInit, OnDestroy {
         type: 'question',
         icon: 'fas fa-question-circle',
         title: 'Answered Science question',
-        time: this.getRelativeTime(now.getTime() - 1000 * 60 * 60 * 3), // 3 hours ago
+        time: this.getRelativeTime(now.getTime() - 1000 * 60 * 60 * 3), 
         status: 'warning',
         statusIcon: 'fas fa-times-circle'
       },
@@ -226,7 +226,7 @@ export class UserHome implements OnInit, OnDestroy {
         type: 'progress',
         icon: 'fas fa-fire',
         title: 'Study streak: 5 days',
-        time: this.getRelativeTime(now.getTime() - 1000 * 60 * 60 * 24), // 1 day ago
+        time: this.getRelativeTime(now.getTime() - 1000 * 60 * 60 * 24), 
         status: 'success',
         statusIcon: 'fas fa-fire'
       }
@@ -273,7 +273,6 @@ export class UserHome implements OnInit, OnDestroy {
     });
   }
 
-  // Public methods for template
   getCurrentLevel(): string {
     const accuracy = this.studentProgress?.accuracyPercentage || 0;
     if (accuracy < 40) return 'Beginner';
@@ -282,13 +281,12 @@ export class UserHome implements OnInit, OnDestroy {
   }
 
   getFocusArea(): string {
-    // This would be calculated based on performance data
     const areas = ['Mathematics', 'Science', 'Geography', 'Literature'];
     return areas[Math.floor(Math.random() * areas.length)];
   }
 
   getBestTime(): string {
-    // This would be calculated based on performance data
+
     const times = ['morning', 'afternoon', 'evening'];
     return times[Math.floor(Math.random() * times.length)];
   }
@@ -297,20 +295,20 @@ export class UserHome implements OnInit, OnDestroy {
 
 
   getRecentActivity(): ActivityItem[] {
-    return this.recentActivity.slice(0, 4); // Show only last 4 activities
+    return this.recentActivity.slice(0, 4); 
   }
 
   getAchievements(): Achievement[] {
-    return this.achievements.slice(0, 4); // Show only first 4 achievements
+    return this.achievements.slice(0, 4); 
   }
 
   getDailyProgress(): number {
-    // Mock data - in real app, this would come from daily progress tracking
+
     return Math.min(10, Math.floor(Math.random() * 12));
   }
 
   getWeeklyAccuracy(): number {
-    // Mock data - in real app, this would be calculated from weekly performance
+
     const baseAccuracy = this.studentProgress?.accuracyPercentage || 0;
     return Math.min(100, baseAccuracy + Math.floor(Math.random() * 15));
   }
@@ -331,28 +329,28 @@ export class UserHome implements OnInit, OnDestroy {
     }
   }
 
-  // Action methods
+
   refreshStats() {
-    // Simulate refreshing stats
+
     this.studentProgress = this.progressService.getProgress();
     this.updateAchievements();
     this.updateStudyGoals();
     
-    // Show a brief loading state
+
     setTimeout(() => {
       console.log('Stats refreshed');
     }, 1000);
   }
 
   editGoals() {
-    // This would open a modal or navigate to goals editing page
+
     console.log('Edit goals clicked');
-    // For now, just show an alert
+
     alert('Goals editing feature coming soon!');
   }
 
   viewAllAchievements() {
-    // This would navigate to a full achievements page
+
     console.log('View all achievements clicked');
     alert('Full achievements page coming soon!');
   }
@@ -365,11 +363,11 @@ export class UserHome implements OnInit, OnDestroy {
     }
   }
 
-  // Utility methods for enhanced functionality
+
   getPerformanceColor(percentage: number): string {
-    if (percentage >= 80) return '#10b981'; // green
-    if (percentage >= 60) return '#f59e0b'; // yellow
-    return '#ef4444'; // red
+    if (percentage >= 80) return '#10b981';
+    if (percentage >= 60) return '#f59e0b'; 
+    return '#ef4444'; 
   }
 
   getStreakMessage(): string {
@@ -391,7 +389,7 @@ export class UserHome implements OnInit, OnDestroy {
     return messages[Math.floor(Math.random() * messages.length)];
   }
 
-  // Method to simulate adding a new question attempt
+
   simulateQuestionAttempt() {
     const subjects = ['Mathematics', 'Science', 'Geography', 'Literature'];
     const topics = ['Algebra', 'Physics', 'World Capitals', 'Classic Authors'];
@@ -402,11 +400,11 @@ export class UserHome implements OnInit, OnDestroy {
       question: 'Sample question for demonstration',
       userAnswer: 'Sample answer',
       correctAnswer: 'Correct answer',
-      isCorrect: Math.random() > 0.3, // 70% chance of being correct
+      isCorrect: Math.random() > 0.3, 
       subject: subjects[Math.floor(Math.random() * subjects.length)],
       topic: topics[Math.floor(Math.random() * topics.length)],
       difficulty: difficulties[Math.floor(Math.random() * difficulties.length)],
-      timeSpent: Math.floor(Math.random() * 60) + 10, // 10-70 seconds
+      timeSpent: Math.floor(Math.random() * 60) + 10, 
       timestamp: new Date().toISOString()
     };
 
@@ -429,7 +427,7 @@ export class UserHome implements OnInit, OnDestroy {
     });
   }
 
-  // Toast notification methods
+
   showSuccessToast(title: string, message: string) {
     this.toastType = 'success';
     this.toastTitle = title;
@@ -473,6 +471,6 @@ export class UserHome implements OnInit, OnDestroy {
   private autoHideToast() {
     setTimeout(() => {
       this.showToast = false;
-    }, 5000); // Auto-hide after 5 seconds
+    }, 5000); 
   }
 }

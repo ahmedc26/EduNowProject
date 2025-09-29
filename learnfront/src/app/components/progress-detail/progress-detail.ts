@@ -15,7 +15,11 @@ export class ProgressDetailComponent implements OnInit {
   selectedTab = 'overview';
   selectedSubject = 'all';
   selectedDifficulty = 'all';
+   totalQuestionsCount = 0;
+  correctAnswersCount = 0;
+  accuracyPercentage = 0;
 
+  
   constructor(
     private progressService: ProgressService,
     private questionService: QuestionGeneratorService
@@ -28,24 +32,63 @@ export class ProgressDetailComponent implements OnInit {
   loadProgressData(): void {
     this.isLoading = true;
     
-    // Get current progress
+
     this.progress = this.progressService.getProgress();
-    
-    // Load detailed stats (this would come from backend in real implementation)
+    this.loadMainProgressMetrics();
+
     this.loadDetailedStats();
     
     this.isLoading = false;
   }
 
-  loadDetailedStats(): void {
-    // Get detailed stats from the enhanced progress service
-    this.progressStats = this.progressService.getDetailedStats();
+  loadMainProgressMetrics(): void {
+
+    const currentProgress = this.progressService.getProgress();
     
-    // If no data exists, create some sample data for demonstration
-    if (this.progressStats.totalQuestions === 0) {
+    this.totalQuestionsCount = currentProgress.totalQuestionsCount;
+    this.correctAnswersCount = currentProgress.correctAnswersCount;
+    this.accuracyPercentage = currentProgress.accuracyPercentage;
+    
+    console.log('Progress Metrics:', {
+      total: this.totalQuestionsCount,
+      correct: this.correctAnswersCount,
+      accuracy: this.accuracyPercentage
+    });
+  }
+
+  loadDetailedStats(): void {
+    this.progressStats = this.progressService.getDetailedStats();
+    if (this.progressStats.totalQuestions === 0 && this.totalQuestionsCount > 0) {
+      this.createStatsFromProgress();
+    } else if (this.progressStats.totalQuestions === 0) {
       this.createSampleData();
     }
   }
+
+  private createStatsFromProgress(): void {
+    // Create basic stats from the main progress data
+    const attempts = this.progressService.getQuestionAttempts();
+    
+    if (attempts.length === 0 && this.totalQuestionsCount > 0) {
+      // If we have progress but no detailed attempts, create a basic structure
+      this.progressStats = {
+        totalQuestions: this.totalQuestionsCount,
+        correctAnswers: this.correctAnswersCount,
+        incorrectAnswers: this.totalQuestionsCount - this.correctAnswersCount,
+        accuracyPercentage: this.accuracyPercentage,
+        averageTimePerQuestion: 0,
+        totalTimeSpent: 0,
+        subjectBreakdown: [],
+        difficultyBreakdown: [],
+        recentActivity: [],
+        streak: 0,
+        bestStreak: 0
+      };
+    } else {
+      this.progressStats = this.progressService.getDetailedStats();
+    }
+  }
+
 
   private createSampleData(): void {
     const sampleAttempts: QuestionAttempt[] = [
@@ -111,12 +154,11 @@ export class ProgressDetailComponent implements OnInit {
       }
     ];
 
-    // Save sample data to the service
+
     sampleAttempts.forEach(attempt => {
       this.progressService.saveQuestionAttempt(attempt);
     });
 
-    // Reload stats with the new data
     this.progressStats = this.progressService.getDetailedStats();
   }
 

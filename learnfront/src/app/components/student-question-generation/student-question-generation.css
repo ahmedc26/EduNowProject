@@ -1,10 +1,15 @@
+.overall {
+      background: linear-gradient(135deg, #748bf1 0%, #dddbdf 100%);
+      padding-top: 40px;
+      padding-bottom: 100px;
+}
 .question-generator-container {
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  margin-left: 150px;
+  padding-top: 20px;
+  background: linear-gradient(135deg,#764ba2 0%, #667eea 100%);
   min-height: 100vh;
-  margin-top: 20px;
+
   border-radius: 16px;
 }
 
@@ -78,9 +83,11 @@
 .form-card, .question-card, .loading-card {
   background: white;
   border-radius: 12px;
+  width: 95%;
   box-shadow: 0 8px 32px rgba(0,0,0,0.1);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.2);
+  margin-left: 25px;
 }
 
 .form-row {
