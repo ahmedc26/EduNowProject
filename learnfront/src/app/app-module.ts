@@ -45,8 +45,10 @@ import { AccessDenied } from './components/access-denied/access-denied';
 import { TopicsSubject } from './components/topics-subject/topics-subject';
 import { NotificationBellComponent } from './components/notification-bell/notification-bell';
 import { NotificationsComponent } from './components/notifications/notifications';
-
 import { ProgressDetailComponent } from './components/progress-detail/progress-detail';
+import { AdminLoginHistory } from './components/admin-login-history/admin-login-history';
+import { StudentQuestionGenerator } from './components/student-question-generation/student-question-generation';
+
 
 
 
@@ -76,8 +78,10 @@ import { ProgressDetailComponent } from './components/progress-detail/progress-d
     TopicsSubject,
     NotificationBellComponent,
     NotificationsComponent,
-
     ProgressDetailComponent,
+    AdminLoginHistory,
+    StudentQuestionGenerator
+
 
   ],
   imports: [

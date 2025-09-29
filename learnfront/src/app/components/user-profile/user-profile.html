@@ -42,10 +42,11 @@
       <div class="profile-details-card">
         <h3>Profile Details</h3>
         <div class="details-grid">
+          <!-- 
           <div class="detail-item">
             <span class="details-label">ID</span>
             <span class="details-value">{{currentUser?.idUser}}</span>
-          </div>
+          </div>-->
           <div class="detail-item">
             <span class="details-label">First Name</span>
             <span class="details-value">{{currentUser?.firstName}}</span>
@@ -66,10 +67,47 @@
             <span class="details-label">Joined On</span>
             <span class="details-value">{{currentUser?.createdDate | date:'yyyy-MM-dd'}}</span>
           </div>
+          <div class="detail-item highlight" *ngIf="lastLogin">
+            <span class="details-label">Last Login</span>
+            <span class="details-value">{{lastLogin.loginTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+          </div>
+        </div>
+        
+        <div class="login-history-section">
+          <button class="btn-secondary" (click)="getLoginHistory()">
+            <span class="material-icons">history</span> View Login History
+          </button>
+        </div>
+      </div>
+
+      
+      <div class="login-history-overlay" *ngIf="showLoginHistory" (click)="hideLoginHistory()">
+        <div class="login-history-modal" (click)="$event.stopPropagation()">
+          <div class="modal-header">
+            <h3>Login History</h3>
+            <button class="close-btn" (click)="hideLoginHistory()">
+              <span class="material-icons">close</span>
+            </button>
+          </div>
+          <div class="modal-content">
+            <div class="history-list" *ngIf="loginHistory.length > 0">
+              <div class="history-item" *ngFor="let login of loginHistory">
+                <div class="history-date">
+                  {{login.loginTime | date:'yyyy-MM-dd HH:mm:ss'}}
+                </div>
+                <div class="history-status" [class.active]="login.isActive">
+                  {{login.isActive ? 'Active' : 'Logged Out'}}
+                </div>
+              </div>
+            </div>
+            <div class="no-history" *ngIf="loginHistory.length === 0">
+              <p>No login history found.</p>
+            </div>
+          </div>
+        </div>
         </div>
       </div>
     </div>
-  </div>
 
 </body>
 </html>

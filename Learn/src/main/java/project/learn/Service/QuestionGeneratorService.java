@@ -1,12 +1,8 @@
 package project.learn.Service;
 
-import org.springframework.stereotype.Service;
+import project.learn.dto.GenerateQuestionRequest;
+import project.learn.dto.QuestionResponse;
 
-@Service
-public class QuestionGeneratorService {
-
-
-
-
-
+public interface QuestionGeneratorService {
+    QuestionResponse generateQuestion(GenerateQuestionRequest request);
 }

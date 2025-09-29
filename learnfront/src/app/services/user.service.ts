@@ -4,6 +4,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { ListFormat } from 'typescript';
 import { reportUnhandledError } from 'rxjs/internal/util/reportUnhandledError';
 import { User } from '../models/user.model';
+import { LoginHistory } from '../models/login-history.model';
 
 
 @Injectable({
@@ -53,4 +54,45 @@ export class UserService {
       );
   }
 
+ getUserLoginHistory(userId: number): Observable<LoginHistory[]> {
+    return this.http.get<LoginHistory[]>(`http://localhost:8088/api/v1/auth/login-history/${userId}`)
+      .pipe(
+        catchError(error => {
+          console.error('Error fetching login history:', error);
+          return throwError(() => error);
+        })
+      );
   }
+
+  getLastLogin(userId: number): Observable<LoginHistory> {
+    return this.http.get<LoginHistory>(`http://localhost:8088/api/v1/auth/last-login/${userId}`)
+      .pipe(
+        catchError(error => {
+          console.error('Error fetching last login:', error);
+          return throwError(() => error);
+        })
+      );
+  }
+
+  logout(userId: number): Observable<void> {
+    return this.http.post<void>(`http://localhost:8088/api/v1/auth/logout/${userId}`, {})
+      .pipe(
+        catchError(error => {
+          console.error('Error logging out:', error);
+          return throwError(() => error);
+        })
+      );
+  }
+
+  getAllLoginHistory(): Observable<LoginHistory[]> {
+    return this.http.get<LoginHistory[]>(`http://localhost:8088/api/v1/auth/admin/login-history`)
+      .pipe(
+        catchError(error => {
+          console.error('Error fetching all login history:', error);
+          return throwError(() => error);
+        })
+      );
+  }
+
+  }
+

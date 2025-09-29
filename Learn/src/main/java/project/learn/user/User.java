@@ -1,5 +1,6 @@
 package project.learn.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @DynamicUpdate
 @Table(name = "_user")
 @EntityListeners(AuditingEntityListener.class)

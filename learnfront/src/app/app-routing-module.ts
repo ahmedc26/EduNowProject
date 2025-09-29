@@ -22,8 +22,9 @@ import { AccessDenied } from './components/access-denied/access-denied';
 import { TopicsSubject } from './components/topics-subject/topics-subject';
 import { NotificationsComponent } from './components/notifications/notifications';
 import { ChangePasswordComponent } from './components/change-password/change-password';
-
+import { AdminLoginHistory } from './components/admin-login-history/admin-login-history';
 import { ProgressDetailComponent } from './components/progress-detail/progress-detail';
+import { StudentQuestionGenerator } from './components/student-question-generation/student-question-generation';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -39,7 +40,7 @@ const routes: Routes = [
   
 
   { path: 'admin-topics',component:AdminTopics, canActivate:[AuthGuardService]},
-
+  { path: 'admin-login-history', component: AdminLoginHistory, canActivate:[AuthGuardService]},
   { path: 'Student-home', component:StudentHome},
   { path: 'level/:idLevel/topics', component: TopicsLevel },
   { path: 'level/:idLevel/subject/:idSubject/topics', component: TopicsSubject },
@@ -50,7 +51,7 @@ const routes: Routes = [
   { path: 'user-levels',component:UserLevels, canActivate:[StudentAuthGuardService]},
   { path: 'user-topic', component:UserTopic, canActivate:[StudentAuthGuardService]},
   { path: 'notifications', component: NotificationsComponent, canActivate:[StudentAuthGuardService]},
-
+  { path: 'question-generator', component: StudentQuestionGenerator, canActivate:[StudentAuthGuardService]},
   { path: 'progress-detail', component: ProgressDetailComponent, canActivate:[StudentAuthGuardService]},
 
   { path: 'access-denied', component: AccessDenied },

@@ -1,0 +1,73 @@
+<p>admin-login-history works!</p>
+<app-side-bar>
+  <div class="admin-login-history-container">
+    <div class="header">
+      <h1>Login History</h1>
+      <p>View all users login activities</p>
+      <button class="refresh-btn" (click)="refreshHistory()" [disabled]="isLoading">
+        <span class="material-icons">refresh</span>
+        Refresh
+      </button>
+    </div>
+
+    <div class="content">
+
+      <div class="loading-container" *ngIf="isLoading">
+        <div class="spinner"></div>
+        <p>Loading login history...</p>
+      </div>
+
+      <div class="error-container" *ngIf="error && !isLoading">
+        <div class="error-message">
+          <span class="material-icons">error</span>
+          {{ error }}
+        </div>
+        <button class="retry-btn" (click)="refreshHistory()">Try Again</button>
+      </div>
+
+      <!-- Login History Table -->
+      <div class="table-container" *ngIf="!isLoading && !error">
+        <div class="table-header">
+          <h3>All Login Activities</h3>
+          <span class="total-count">{{ loginHistory.length }} total entries</span>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="login-history-table">
+            <thead>
+              <tr>
+                <th>Student Name</th>
+                <th>Email</th>
+                <th>Login Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let login of loginHistory" class="table-row">
+                <td class="student-name">
+                  {{ login.user.firstName }} {{ login.user.lastName }}
+                </td>
+                <td class="student-email">
+                  {{ login.user.email }}
+                </td>
+                <td class="login-time">
+                  {{ login.loginTime | date:'yyyy-MM-dd HH:mm:ss' }}
+                </td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" *ngIf="loginHistory.length === 0">
+          <div class="empty-icon">
+            <span class="material-icons">history</span>
+          </div>
+          <h3>No Login History Found</h3>
+          <p>There are no login records available at the moment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-side-bar>
+

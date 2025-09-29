@@ -10,12 +10,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import project.learn.Repository.LoginHistoryRepo;
 import project.learn.Repository.RoleRepo;
 import project.learn.Repository.TokenRepo;
 import project.learn.Repository.UserRepo;
 import project.learn.Security.JwtService;
 import project.learn.email.EmailService;
 import project.learn.email.EmailTemplateName;
+import project.learn.Entity.LoginHistory;
 import project.learn.user.Token;
 import project.learn.user.User;
 
@@ -38,6 +40,7 @@ public class  AuthenticationService {
     private final TokenRepo tokenRepo;
     private final EmailService emailService;
     private final JwtService jwtService;
+    private final LoginHistoryRepo loginHistoryRepo;
     @Value("${application.mailing.frontend.activation-url}")
     private String activationUrl;
     private final AuthenticationManager authenticationManager;
@@ -106,6 +109,10 @@ public class  AuthenticationService {
     claims.put("createdDate", Date.from(user.getCreatedDate().atZone(ZoneId.systemDefault()).toInstant()));
 
     var jwtToken = jwtService.generateToken(claims,user);
+    
+    // Track login history
+    recordLoginHistory(user);
+    
     return AuthenticationResponse.builder().token(jwtToken).build();
     }
 
@@ -124,6 +131,46 @@ public class  AuthenticationService {
     userRepo.save(user);
     savedToken.setValidateAt(LocalDateTime.now());
     tokenRepo.save(savedToken);
+    }
+
+    private void recordLoginHistory(User user) {
+        // Deactivate any existing active login sessions for this user
+        loginHistoryRepo.findActiveLoginByUser(user).ifPresent(activeLogin -> {
+            activeLogin.setActive(false);
+            activeLogin.setLogoutTime(LocalDateTime.now());
+            loginHistoryRepo.save(activeLogin);
+        });
+
+        // Create new login history record
+        var loginHistory = LoginHistory.builder()
+                .user(user)
+                .isActive(true)
+                .build();
+        
+        loginHistoryRepo.save(loginHistory);
+    }
+
+    public void recordLogout(Long userId) {
+        loginHistoryRepo.findActiveLoginByUser(userRepo.findById(userId).orElse(null))
+                .ifPresent(activeLogin -> {
+                    activeLogin.setActive(false);
+                    activeLogin.setLogoutTime(LocalDateTime.now());
+                    loginHistoryRepo.save(activeLogin);
+                });
+    }
+
+    public List<LoginHistory> getUserLoginHistory(Long userId) {
+        var user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        return loginHistoryRepo.findByUserOrderByLoginTimeDesc(user);
+    }
+
+    public Optional<LoginHistory> getLastLogin(Long userId) {
+        var user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        return loginHistoryRepo.findLastLoginHistoryByUser(user).stream().findFirst();
+    }
+
+    public List<LoginHistory> getAllLoginHistory() {
+        return loginHistoryRepo.findAllByOrderByLoginTimeDesc();
     }
 
 
