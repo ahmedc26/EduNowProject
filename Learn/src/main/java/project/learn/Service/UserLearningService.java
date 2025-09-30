@@ -1,5 +1,6 @@
 package project.learn.Service;
 
+import org.springframework.stereotype.Service;
 import project.learn.dto.UserInteractionRequest;
 import project.learn.dto.UserPreferencesResponse;
 import project.learn.dto.LearningAnalyticsResponse;

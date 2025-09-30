@@ -39,11 +39,10 @@ public class NotificationService {
         System.out.println("Topic created: " + topic.getName_Topic());
         System.out.println("Subject: " + (topic.getSubject() != null ? topic.getSubject().getName_Subject() : "null"));
         
-        // Get all users with STUDENT role using the repository method
+
         List<User> students = userRepo.findByRoles_name("STUDENT");
         System.out.println("Found " + students.size() + " students using repository method");
-        
-        // Debug: Print student details
+
         for (User student : students) {
             System.out.println("Student: " + student.getEmail() + " - Roles: " + 
                     student.getRoles().stream().map(Role::getName).toList());
@@ -56,7 +55,7 @@ public class NotificationService {
                 topic.getName_Topic(), 
                 topic.getSubject() != null ? topic.getSubject().getName_Subject() : "the system");
 
-        // Create notification for each student
+
         for (User student : students) {
             System.out.println("Creating notification for student: " + student.getEmail());
             Notification notification = createNotification(student, title, message, "TOPIC_ADDED", topic);
