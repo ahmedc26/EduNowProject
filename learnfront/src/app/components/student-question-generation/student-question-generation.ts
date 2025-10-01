@@ -25,10 +25,10 @@ export class StudentQuestionGenerator {
   levels = ['6eme', '5eme', '4eme', '3eme', '2eme', '1ere', 'Terminale'];
   levelTypes = ['primary', 'secondary'];
   subjects = ['French', 'English'];
-  topics = ['Grammaire', 'Litterature', 'Grammar', 'Literature', 'Vocabulaire','Vocabulary','Writing'];
-  skills = ['Conjugaison', 'Comprehension', 'Tenses', 'Reading', 'Mots usuels','Essay skills','Analyse de texte','Animals'];
-  subSkills = ['Verbes du 1eme groupe','Verbes du 2eme groupe','Comprehension', 'Idees principales', 'Future tense', 'Simple past', 'Equations', 'Functions', 'Animaux','Argumentation','Identify animals'];
-  subSubSkills = ['Futur simple', 'Past tense', 'Present perfect', 'Regular verbs', 'Quadratic functions','Noms','Idees principales','Wild animals'];
+  topics = ['Grammaire', 'Litterature', 'Vocabulaire','------------ English ------------','Grammar', 'Literature', 'Vocabulary','Writing'];
+  skills = ['Conjugaison', 'Comprehension', 'Lexique','Mots usuels','Analyse de texte','----------- English ----------', 'Tenses','Reading', 'Mots usuels','Essay skills','Animals'];
+  subSkills = ['Verbes du 1eme groupe','Verbes du 2eme groupe','Comprehension', 'Idees principales', 'Couleurs', 'Animaux','Argumentation', '----------- English ----------','Simple past','Simple Present','Identify animals', 'Future tense'];
+  subSubSkills = ['Futur simple', 'Past tense', 'Present perfect','Noms','Identification','----------- English ----------','Regular verbs', 'Irregular Verb','Idees principales','Wild animals','Form'];
 
   constructor(
     private fb: FormBuilder,
