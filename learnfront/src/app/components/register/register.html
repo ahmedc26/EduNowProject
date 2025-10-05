@@ -54,7 +54,6 @@
         </form>
       </div>
 
-      <!-- Sign Up Side -->
       <div class="account-back">
         <div class="account-header">
           <img src="/assets/images/signup.svg" width="150px" alt="Logo" class="logo">
@@ -77,7 +76,7 @@
          <div class="form-row">
           <mat-form-field appearance="outline">
             <mat-label>Phone Number</mat-label>
-            <input matInput formControlName="phoneNumber" type="phone" required>
+            <input matInput formControlName="phoneNumber" requiredmaxlength="8" minlength="8"pattern="[0-9]{8}" type="phone" required>
             <mat-icon matSuffix>phone_outline</mat-icon>
           </mat-form-field> 
           <mat-form-field appearance="outline">
@@ -88,7 +87,9 @@
 </div>
           <mat-form-field appearance="outline">
             <mat-label>Password</mat-label>
-            <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" required>
+            <!--<input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" required minlength="8"
+         pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$">-->
+            <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" required >
             <mat-hint>At least 8 characters with 1 number and 1 special character</mat-hint>
           </mat-form-field>
 

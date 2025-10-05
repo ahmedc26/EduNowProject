@@ -13,8 +13,7 @@ import java.util.*;
 @Slf4j
 public class UserLearningServiceImpl implements UserLearningService {
 
-    // In-memory storage for demo purposes
-    // In production, this would be replaced with database repositories
+
     private final Map<String, List<UserInteractionRequest>> userInteractions = new HashMap<>();
     private final Map<String, UserPreferencesResponse> userPreferences = new HashMap<>();
     private final Map<String, LearningAnalyticsResponse> userAnalytics = new HashMap<>();
@@ -23,11 +22,11 @@ public class UserLearningServiceImpl implements UserLearningService {
     public void trackUserInteraction(UserInteractionRequest interaction) {
         log.info("Tracking interaction for user: {}", interaction.getUserId());
         
-        // Store interaction
+
         userInteractions.computeIfAbsent(interaction.getUserId(), k -> new ArrayList<>())
                        .add(interaction);
         
-        // Update user preferences based on interaction
+
         updateUserPreferencesFromInteraction(interaction);
         
         log.debug("Interaction tracked: {} for user {}", 
@@ -59,7 +58,7 @@ public class UserLearningServiceImpl implements UserLearningService {
         
         List<PersonalizedRecommendationResponse> recommendations = new ArrayList<>();
         
-        // Generate recommendations based on user preferences and history
+
         if (!prefs.getPreferredSubjects().isEmpty()) {
             PersonalizedRecommendationResponse rec = new PersonalizedRecommendationResponse();
             Map<String, String> criteria = new HashMap<>();
@@ -82,7 +81,7 @@ public class UserLearningServiceImpl implements UserLearningService {
             recommendations.add(rec);
         }
         
-        // Add difficulty-based recommendation
+
         PersonalizedRecommendationResponse difficultyRec = new PersonalizedRecommendationResponse();
         Map<String, String> difficultyCriteria = new HashMap<>();
         difficultyCriteria.put("level", getRecommendedLevel(prefs.getDifficultyLevel()));
@@ -102,17 +101,17 @@ public class UserLearningServiceImpl implements UserLearningService {
         
         PersonalizedRecommendationResponse recommendation = new PersonalizedRecommendationResponse();
         Map<String, String> criteria = new HashMap<>();
-        
-        // Predict based on most frequent criteria in recent interactions
+
+
         if (!interactions.isEmpty()) {
-            // Get the most recent interaction's criteria
+
             UserInteractionRequest lastInteraction = interactions.get(interactions.size() - 1);
             if (lastInteraction.getCriteria() != null) {
                 criteria.putAll(lastInteraction.getCriteria());
             }
         }
         
-        // Fallback to user preferences
+
         if (criteria.isEmpty()) {
             if (!prefs.getPreferredSubjects().isEmpty()) {
                 criteria.put("subject", prefs.getPreferredSubjects().get(0));
@@ -152,7 +151,7 @@ public class UserLearningServiceImpl implements UserLearningService {
                 .sum();
             insights.put("questionsGenerated", questionGeneratedCount);
             
-            // Calculate average time to reveal answers
+
             double avgTimeToReveal = interactions.stream()
                 .filter(i -> i.getPerformance() != null && i.getPerformance().getTimeToRevealAnswer() != null)
                 .mapToDouble(i -> i.getPerformance().getTimeToRevealAnswer())

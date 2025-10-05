@@ -27,7 +27,6 @@ public class CsvQuestionGeneratorService implements QuestionGeneratorService {
     public QuestionResponse generateQuestion(GenerateQuestionRequest request) {
         List<Map<String, String>> rows = loadCsvRows();
 
-        // Strict normalized equality filters first
         List<Predicate<Map<String, String>>> strict = new ArrayList<>();
         if (present(request.getLevel())) strict.add(r -> eq(r.get("level"), request.getLevel()));
         if (present(request.getLevelType())) strict.add(r -> eq(r.get("level_type"), request.getLevelType()));
@@ -43,7 +42,6 @@ public class CsvQuestionGeneratorService implements QuestionGeneratorService {
             return new QuestionResponse(pick.getOrDefault("question", ""), pick.getOrDefault("response", ""));
         }
 
-        // Fuzzy contains if nothing found
         List<Predicate<Map<String, String>>> fuzzy = new ArrayList<>();
         if (present(request.getLevel())) fuzzy.add(r -> contains(r.get("level"), request.getLevel()));
         if (present(request.getLevelType())) fuzzy.add(r -> contains(r.get("level_type"), request.getLevelType()));
@@ -121,7 +119,7 @@ public class CsvQuestionGeneratorService implements QuestionGeneratorService {
         }
     }
 
-    // Minimal CSV parser handling quotes and commas
+
     private List<String> parseCsvLine(String line) {
         List<String> cells = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
